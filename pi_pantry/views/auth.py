@@ -8,8 +8,6 @@ from ..models import Account
 from . import DB_ERROR_MSG
 import requests
 
-API_URL = ''
-
 
 @view_config(
     route_name='auth',
@@ -41,7 +39,7 @@ def auth_view(request):
             except IntegrityError:
                 return HTTPConflict
 
-            return HTTPFound(location=request.route_url('portfolio'), headers=headers)
+            return HTTPFound(location=request.route_url('pantry'), headers=headers)
         except DBAPIError:
             return Response(DB_ERROR_MSG, content_type='text/plain', status=500)
 

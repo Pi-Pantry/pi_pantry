@@ -16,4 +16,4 @@ class Pantry:
     id = Column(Integer, primary_key=True)
     upc = Column(String, nullable=False, unique=True)
     upc_data = Column(String)
-
+    quantity = Column(Integer)
