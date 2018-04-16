@@ -8,11 +8,8 @@ from . import DB_ERR_MSG
 import requests
 
 
-API_URL = ''
-
-
 @view_config(route_name='pantry', renderer='../templates/pantry.jinja2', request_method='GET')
-def entries_view(request):
+def pantry_view(request):
 
     try:
         query = request.dbsession.query(Account)
@@ -25,20 +22,36 @@ def entries_view(request):
     else:
         return HTTPNotFound()
 
+
 @view_config(route_name='detail', renderer='../templates/product-detail.jinja2', request_method='GET')
 def detail_view(request):
     try:
-        upc = request.matchdict['upc']
+        product_id = request.matchdict['id']
     except KeyError:
         return HTTPNotFound()
 
     try:
         query = request.dbsession.query(Product)
-        stock_detail = query.filter(Stock.account_id == request.authenticated_userid).filter(Stock.symbol == stock_symbol).one_or_none()
+        product_detail = query.filter(Product.account_id == request.authenticated_userid).filter(Product.id == product_id).one_or_none()
 
     except DBAPIError:
         return Response(DB_ERR_MSG, content_type='text/plain', status=500)
 
-    for each in stock_detail:
-       if each.username == request.authenticated_userid:
-           return {'stock': stock_detail}
+    for each in product_detail:
+        if each.username == request.authenticated_userid:
+            return {'product': product_detail}
+
+
+@view_config(route_name='pantry', renderer='../templates/shopping_list.jinja2', request_method='GET')
+def shopping_view(request):
+
+    try:
+        query = request.dbsession.query(Account)
+        instance = query.filter(Account.username == request.authenticated_userid).first() and Account.shopping_list is True
+
+    except DBAPIError:
+        return Response(DB_ERR_MSG, content_type='text/plain', status=500)
+    if instance:
+        return {'product': instance.product_id}
+    else:
+        return HTTPNotFound()
