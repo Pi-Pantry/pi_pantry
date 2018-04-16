@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from pyramid.httpexceptions import HTTPNotFound, HTTPFound, HTTPBadRequest
 from pyramid.response import Response
 from pyramid.view import view_config
@@ -55,3 +56,25 @@ def shopping_view(request):
         return {'product': instance.product_id}
     else:
         return HTTPNotFound()
+=======
+from pyramid.security import NO_PERMISSION_REQUIRED
+from pyramid.view import view_config
+from default import sem3
+
+
+@view_config(
+    route_name='manage_item',
+    renderer='../templates/manage_item.jinja2',
+    request_method=('POST', 'DELETE'),
+    permission=NO_PERMISSION_REQUIRED,)
+def add_item(request):
+    # UPLOAD ITEM TO USERS ACCOUNT
+    if request.method == 'POST':
+        try:
+            item_upc = request.GET['upc']
+        except KeyError:
+            return {}
+    # Delete item from users pantry
+    if request.method == 'DELETE':
+        pass
+>>>>>>> 46bd9a372bc33c40e42871f43e56c5e34cd985ef
