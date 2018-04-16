@@ -1,137 +1,18 @@
-1 = {
-  "code": "OK",
-  "offset": 0,
-  "results_count": 1,
-  "results": [
-    {
-      "size": "1 oz.",
-      "gtins": [
-        "00638102203090"
-      ],
-      "sem3_id": "67J7mOb7QmYQ2AeIS2WaOG",
-      "color": "default",
-      "cat_id": "4113",
-      "width": "20.32",
-      "length": "109.22",
-      "height": "20.32",
-      "price_currency": "USD",
-      "brand": "Zone",
-      "upc": "638102203090",
-      "price": "23.38",
-      "model": "509976",
-      "created_at": 1381513796,
-      "name": "Zone Perfect Barra Dulce de Azucar, 50 gr",
-      "messages": [],
-      "variation_secondaryids": [
-        "45rjFGoeGekKiyA2MUUYAC"
-      ],
-      "geo": [
-        "usa"
-      ],
-      "manufacturer": "Zone Perfect",
-      "ean": "0638102203090",
-      "updated_at": 1523892763,
-      "images": [
-        "http://sem3-idn.s3-website-us-east-1.amazonaws.com/1e7fa8646adfe1d95b5f961a77a661c9,0.jpg"
-      ],
-      "weight": "45359.24",
-      "sitedetails": [
-        {
-          "latestoffers": [
-            {
-              "price": "24.08",
-              "lastrecorded_at": 1519161300,
-              "shipping": "458",
-              "isactive": 0,
-              "currency": "USD",
-              "firstrecorded_at": 1519161300,
-              "id": "32LC64UlKqiUYeqkqKmUGM",
-              "condition": "new",
-              "availability": "Available [FPO: Front Page Offer]",
-              "seller": "Vitamins Of The Month"
-            },
-            {
-              "price": "28.09",
-              "lastrecorded_at": 1519161300,
-              "isactive": 0,
-              "currency": "USD",
-              "firstrecorded_at": 1492866000,
-              "id": "44AwmALcSGEiKSsegCAgA2",
-              "condition": "new",
-              "availability": "Available [FPO: Front Page Offer]",
-              "seller": "My Nutrition To Go"
-            },
-            {
-              "price": "15.51",
-              "lastrecorded_at": 1519161300,
-              "shipping": "616",
-              "isactive": 0,
-              "currency": "USD",
-              "firstrecorded_at": 1519161300,
-              "id": "2U5BVYG7c8iKsqAeocGEae",
-              "condition": "New",
-              "availability": "Available [BBX: Buy Box]",
-              "seller": "Bargain The People"
-            }
-          ],
-          "sku": "B003O1R9WE",
-          "url": "http://www.amazon.com/dp/B003O1R9WE",
-          "recentoffers_count": 0,
-          "name": "amazon.com"
-        },
-        {
-          "listprice": "26.99",
-          "name": "walmart.com",
-          "listprice_currency": "USD",
-          "latestoffers": [
-            {
-              "currency": "USD",
-              "lastrecorded_at": 1523892700,
-              "id": "6jTkHmrByaWE2O0MI6O2cO",
-              "firstrecorded_at": 1523892700,
-              "seller": "etailz",
-              "availability": "Available",
-              "price": "23.38",
-              "isactive": 1
-            },
-            {
-              "currency": "USD",
-              "firstrecorded_at": 1484290300,
-              "id": "7ExSfO4iDgweamMu4qGmwu",
-              "lastrecorded_at": 1523892700,
-              "availability": "Available",
-              "seller": "The Green Life",
-              "price": "30.13",
-              "isactive": 1
-            },
-            {
-              "currency": "USD",
-              "id": "69cY82fd2muECqw0SOQAcc",
-              "firstrecorded_at": 1511154200,
-              "lastrecorded_at": 1523892700,
-              "seller": "Garner Supply",
-              "availability": "Available",
-              "price": "23.64",
-              "isactive": 1
-            }
-          ],
-          "recentoffers_count": 3,
-          "url": "http://www.walmart.com/ip/10309808",
-          "sku": "10309808"
-        }
-      ],
-      "description": "Zone Perfect Fudge Graham Bar, 1.76 oz",
-      "features": {
-        "blob": "Zone"
-      },
-      "images_total": 1,
-      "category": "Diet & Nutrition"
-    }
-  ],
-  "total_results_count": 1
-}
 
-2 = {
+  ['results'][0]['size']
+  ['results'][0]['brand']
+  ['results'][0]['upc']
+  ['results'][0]['name']
+  ['results'][0]['manufacturer']
+  ['results'][0]['images']
+  ['results'][0]['description']
+  ['results'][0]['category']
+  ['results'][0]['sitedetails']
+  ['results'][0]['sitedetails'][x][name]
+  ['results'][0]['sitedetails'][x][url]
+  ['results'][0]['sitedetails'][x][y][seller]
+  ['results'][0]['sitedetails'][x][y][price]
+shout = {
   "code": "OK",
   "offset": 0,
   "results_count": 1,
@@ -247,7 +128,7 @@
   "total_results_count": 1
 }
 
-3 = {
+fritos = {
   "code": "OK",
   "offset": 0,
   "results_count": 1,
@@ -453,7 +334,7 @@
   "total_results_count": 1
 }
 
-4 = {
+kind = {
   "code": "OK",
   "offset": 0,
   "results_count": 1,
@@ -585,7 +466,7 @@
   "total_results_count": 1
 }
 
-5 = {
+gummi = {
   "code": "OK",
   "offset": 0,
   "results_count": 1,
@@ -666,7 +547,7 @@
   "total_results_count": 1
 }
 
-6 = {
+clif = {
   "code": "OK",
   "offset": 0,
   "results_count": 1,
