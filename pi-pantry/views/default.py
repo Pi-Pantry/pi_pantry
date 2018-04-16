@@ -15,6 +15,25 @@ def my_view(request):
         return Response(db_err_msg, content_type='text/plain', status=500)
     return {'one': one, 'project': 'pi_pantry'}
 
+@view_config(route_name='pantry', renderer='../templates/pantry.jinja2', request_method='GET')
+def entries_view(request):
+
+    try:
+        query = request.dbsession.query(Account)
+        instance = query.filter(Account.username == request.authenticated_userid).first()
+
+    except DBAPIError:
+        return Response(DB_ERR_MSG, content_type='text/plain', status=500)
+    if instance:
+        return {'data': ['results'][0]}
+    else:
+        return HTTPNotFound()
+
+
+
+
+
+
 
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
