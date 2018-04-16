@@ -8,14 +8,15 @@
     <p>Image: {{product[0]['images']}}</p>
     <p>UPC: {{product[0]['upc']}}</p>
     <p>Description: {{product[0]['description']}}</p>
-    <ul>
-        {% for site in product %}
+    <ul id="online_offers">Online Offers:
+        {% for site in product['sitedetails'] %}
         <li>
           <h2>{{site['name']}}</h2>
           <h3>{{site['url']}}</h3>
-          {% for offer in site %}
+          {% for offer in site['latestoffers'] %}
           <p>({{offer['seller']}}) {{offer['price']}}</p>
           {% endfor %}
         </li>
+    </ul>    
         {% endfor %}
 {% endblock content %}

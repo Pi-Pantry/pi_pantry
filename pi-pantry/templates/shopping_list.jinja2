@@ -1,0 +1,16 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+<h1>My Shopping List</h1>
+
+<ul>
+  {% for product in products %}
+  <li>
+    <h2>{{product[0]['name']}}</h2>
+    <p>({{product[0]['brand']}}) {{product[0]['size']}}</p>
+    <p><a href="{{request.route_url('detail', upc=product[0]['upc'])}}">View Vetails</a></p>
+    <p><a href="{{request.route_url('detail', upc=product[0]['upc'])}}">Remove from List</a></p>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
