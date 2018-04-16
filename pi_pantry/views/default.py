@@ -1,7 +1,12 @@
+from semantics3 import Products
 from pyramid.view import view_config
 from pyramid.security import NO_PERMISSION_REQUIRED
 
-API_URL = ''
+
+sem3 = Products(
+    api_key="SEM3D15F366CA4EE3092E9295299DBDD45C3",
+    api_secret="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+)
 
 
 @view_config(

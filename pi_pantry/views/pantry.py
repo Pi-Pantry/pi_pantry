@@ -1,5 +1,5 @@
 from pyramid.security import NO_PERMISSION_REQUIRED
-from pyramid.view import view_config, API_URL
+from pyramid.view import view_config
 
 
 @view_config(
@@ -8,4 +8,5 @@ from pyramid.view import view_config, API_URL
     request_method=('GET', 'POST'),
     permission=NO_PERMISSION_REQUIRED,)
 def index_view(request):
+
     return {}
