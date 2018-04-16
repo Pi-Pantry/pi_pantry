@@ -1,1 +1,1 @@
-# pi-pantry
+# pi_pantry

@@ -40,7 +40,7 @@ setup(
     ],
     author='Brandon Holderman, George Ceja, Steven Starwalt',
     author_email='pi_pantry@pi_pantry.pi_pantry',
-    url='https://github.com/Pi-Pantry/pi-pantry',
+    url='https://github.com/Pi-Pantry/pi_pantry',
     keywords='web pyramid pylons',
     packages=find_packages(),
     include_package_data=True,
