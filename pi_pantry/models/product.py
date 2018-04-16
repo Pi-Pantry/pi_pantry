@@ -11,8 +11,8 @@ from sqlalchemy import (
 from .meta import Base
 
 
-class Pantry:
-    __tablename__ = 'pantry'
+class Product:
+    __tablename__ = 'product'
     id = Column(Integer, primary_key=True)
     upc = Column(String, nullable=False, unique=True)
     upc_data = Column(String)
