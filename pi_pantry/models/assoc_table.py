@@ -8,5 +8,5 @@ from sqlalchemy import (
 
 association_table = Table('association', Base.metadata,
                           Column('account_id', Integer, ForeignKey('account.id')),
-                          Column('pantry_id', Integer, ForeignKey('pantry.id'))
+                          Column('product_id', Integer, ForeignKey('product.id'))
                           )
