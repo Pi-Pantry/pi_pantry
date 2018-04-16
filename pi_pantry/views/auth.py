@@ -3,7 +3,7 @@ from pyramid.security import NO_PERMISSION_REQUIRED, remember, forget
 from pyramid.view import view_config
 from pyramid.response import Response
 from sqlalchemy.exc import DBAPIError, IntegrityError
-from ..models import Stock
+from ..models import Product
 from ..models import Account
 from . import DB_ERROR_MSG
 import requests
