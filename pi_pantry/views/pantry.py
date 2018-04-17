@@ -102,4 +102,33 @@ def manage_items_view(request):
         return {'product': upc_data}
 
     if request.method == 'POST':
-        pass
+        
+        try:
+            upc = request.POST['upc']
+        except KeyError:
+            raise HTTPBadRequest()
+
+        query = request.dbsession.query(Account)
+        user = query.filter(Account.username == request.authenticated_userid).first()
+
+        try:
+            query = request.dbsession.query(Product)
+            item = query.filter(Product.upc == upc).one_or_none()
+        except DBAPIError:
+            return Response(DB_ERR_MSG, content_type='text/plain', status=500)
+
+        if item is None:
+            response = requests.get(API_URL + '/stock/{}/company'.format(symbol))
+            product = response.json()
+
+            instance = Product(**upc_data)
+            instance.account_id.append(user)
+
+            try:
+                request.dbsession.add(instance)
+            except DBAPIError:
+                return Response(DB_ERR_MSG, content_type='text/plain', status=500)
+
+        else:
+            item.account_id.append(user)
+
