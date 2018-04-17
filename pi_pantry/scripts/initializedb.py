@@ -10,14 +10,13 @@ from pyramid.paster import (
 from pyramid.scripts.common import parse_vars
 from ..models import Account
 from ..models import Product
-from ..models import Pantry
 from ..models.meta import Base
 from ..models import (
     get_engine,
     get_session_factory,
     get_tm_session,
     )
-    
+
 from ..models import Account
 
 

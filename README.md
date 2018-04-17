@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# pi_pantry
-=======
 # pi_pantry
 
 **Authors**: Brandon Holderman, George Ceja, Steven Starwalt
@@ -31,4 +28,3 @@ Semantics3 UPC database
 
 ## Change Log
 April 16 2018 - Repo Created
->>>>>>> 770cc68fd129ce9c0f2f92db7bf502e7915843bc
