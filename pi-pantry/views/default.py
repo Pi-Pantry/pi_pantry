@@ -42,9 +42,9 @@ def detail_view(request):
     """
     Directs user to the detail template
     """
-    symbol = request.matchdict['symbol']
+    upc = request.matchdict['upc']
 
-    for data in API_URL:
-        if data['symbol'] == symbol:
+    for data in MOCK_DATA:
+        if data['upc'] == upc:
             return {'data': data}
     return {}
