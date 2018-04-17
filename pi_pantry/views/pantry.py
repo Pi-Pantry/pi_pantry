@@ -4,12 +4,8 @@ from sqlalchemy.exc import DBAPIError
 from ..models import Product
 from pyramid.view import view_config
 from .default import sem3
-import requests
-
-
-# def get_upc():
-#     print('SUCCESSFULLY SCANNED', upc)
-#     return upc
+from semantics3.error import Semantics3Error
+# import requests
 
 
 def parse_upc_data(data):
@@ -40,24 +36,22 @@ def manage_items_view(request):
         upc_data = query.filter(Product.upc == upc).one_or_none()
         # except DBAPIError:
         #     return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-
         if upc_data is None:
-            # request.dbsession.append(parse_upc_data(query_data))
-            sem3.products_field("upc", upc)
-            query_data = sem3.get_products()
-
-            product = parse_upc_data(query_data)
-            instance = Product(**product)
-
+            try:
+                sem3.products_field("upc", upc)
+                query_data = sem3.get_products()
+                product = parse_upc_data(query_data)
+                instance = Product(**product)
+            except (KeyError, IndexError, Semantics3Error):
+                return {'err': '[ ! ]  INVALID UPC INPUT'}
             try:
                 request.dbsession.add(instance)
             except DBAPIError:
                 return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-
         return {'product': upc_data}
 
-    # if request.method == 'POST':
-    #     pass
+    if request.method == 'POST':
+        pass
 
 
 DB_ERR_MSG = 'Custom Error Message Here.'
