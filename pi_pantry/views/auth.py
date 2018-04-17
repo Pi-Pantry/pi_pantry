@@ -5,7 +5,7 @@ from pyramid.response import Response
 from sqlalchemy.exc import DBAPIError, IntegrityError
 from ..models import Product
 from ..models import Account
-from . import DB_ERROR_MSG
+from . import DB_ERR_MSG
 import requests
 
 
@@ -39,9 +39,9 @@ def auth_view(request):
             except IntegrityError:
                 return HTTPConflict
 
-            return HTTPFound(location=request.route_url('pantry'), headers=headers)
+            return HTTPFound(location=request.route_url('product_detail'), headers=headers)
         except DBAPIError:
-            return Response(DB_ERROR_MSG, content_type='text/plain', status=500)
+            return Response(DB_ERR_MSG, content_type='text/plain', status=500)
 
     if request.method == 'GET':
         try:
@@ -54,7 +54,7 @@ def auth_view(request):
             request, username, password)
         if is_authenticated[0]:
             headers = remember(request, userid=username)
-            return HTTPFound(location=request.route_url('pantry'), headers=headers)
+            return HTTPFound(location=request.route_url('product_detail'), headers=headers)
         else:
             return HTTPUnauthorized
     return HTTPFound(location=request.route_url('home'))

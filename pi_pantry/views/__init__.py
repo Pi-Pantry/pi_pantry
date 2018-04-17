@@ -1,1 +1,1 @@
-DB_ERROR_MSG = '''Something went wrong with the DB'''
+DB_ERR_MSG = '''Something went wrong with the DB'''

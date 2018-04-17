@@ -12,14 +12,14 @@
 <body>
     <nav>
         <a href="{{request.route_url('home')}}">Home</a>
-        {% if request.authenticated_userid %}
+
         <!--Finish code to only show full nav to authenticated user-->
-        <!--<a href="{{request.route_url('portfolio')}}">Portfolio</a>
-        <a href="{{request.route_url('add')}}">Add Stock</a>-->
+        <a href="{{request.route_url('pantry')}}">Pantry</a>
+
         <a href="{{request.route_url('logout')}}">Logout</a>
-        {% else %}
+
         <a href="{{request.route_url('auth')}}">Login</a>
-        {% endif %}
+
     </nav>
 
     <h1>Welcome to Pi Pantry</h1>

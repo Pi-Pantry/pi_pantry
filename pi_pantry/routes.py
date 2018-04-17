@@ -5,5 +5,5 @@ def includeme(config):
     config.add_route('manage_item', '/manage_item')
     config.add_route('pantry', '/pantry')
     config.add_route('shopping_list', '/shopping_list')
-    config.add_route('details', '/details')
+    config.add_route('product_detail', '/product_detail')
     config.add_route('logout', '/logout')

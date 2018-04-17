@@ -1,6 +1,4 @@
-MOCK_DATA = {
-    [
-        {
+MOCK_DATA = [{
           "code": "OK",
           "offset": 0,
           "results_count": 1,
@@ -129,6 +127,4 @@ MOCK_DATA = {
             }
           ],
           "total_results_count": 1
-        },
-    ]
-}
+}]
