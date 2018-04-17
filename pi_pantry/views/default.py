@@ -5,7 +5,7 @@ from pyramid.security import NO_PERMISSION_REQUIRED
 
 sem3 = Products(
     api_key="SEM3D15F366CA4EE3092E9295299DBDD45C3",
-    api_secret="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    api_secret="NGYzMjliNzlmZTRiODQ5YWE1NzI4MzdiNjMyZDNkNDE"
 )
 
 
