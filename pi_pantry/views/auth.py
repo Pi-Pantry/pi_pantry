@@ -50,7 +50,7 @@ def auth_view(request):
             request, username, password)
         if is_authenticated[0]:
             headers = remember(request, userid=username)
-            return HTTPFound(location=request.route_url('detail'), headers=headers)
+            return HTTPFound(location=request.route_url('pantry'), headers=headers)
         else:
             return HTTPUnauthorized
     return HTTPFound(location=request.route_url('home'))
