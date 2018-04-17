@@ -4,15 +4,18 @@
 <center>
   <h2>Manage Items</h2>
 
-  <!-- ADD ITEM 
-  <form method='POST' action="{{request.route_url('manage_item')}}">
+  <!--- ADD ITEM --->
+  <form method='GET' action="{{request.route_url('manage_item')}}">
     <fieldset>
       <legend>Add Item</legend>
       UPC SCAN: <input type="text" name="upc">
     </fieldset>
   </form> -->
 
-  <!-- DELETE ITEM
+
+
+
+  <!--- DELETE ITEM --->
   <form method='DELETE' action="{{request.route_url('manage_item')}}">
     <fieldset>
       <legend>Remove Item</legend>

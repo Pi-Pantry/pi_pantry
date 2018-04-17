@@ -64,17 +64,75 @@ def portfolio_view(request):
     return {'data': MOCK_DATA}
 
 
-# @view_config(
-#     route_name='detail',
-#     renderer='../templates/detail.jinja2',
-#     request_method='GET')
-# def detail_view(request):
-#     """
-#     Directs user to the detail template
-#     """
-#     upc = request.matchdict['upc']
+@view_config(
+    route_name='add',
+    renderer='../templates/manage_items.jinja2')
+def manage_items_view(request):
+    if request.method == 'GET':
+        try:
+            upc = request.GET['upc']
+        except KeyError:
+            return {}
+        try:
+            query = request.dbsession.query(Product)
+            upc_data = query.filter(Product.upc == upc).one_or_none()
+        except DBAPIError:
+            return Response(DB_ERR_MSG, content_type='text/plain', status=500)
 
-#     for data in MOCK_DATA:
-#         if data['upc'] == upc:
-#             return {'data': data}
-#     return {}
+        if upc_data is None:
+            def get_upc():
+                upc = input('SCAN BARCODE: ')
+                print('SUCCESSFULLY SCANNED', upc)
+                return upc
+
+            sem3.products_field("upc", get_upc())
+            query_data = sem3.get_products()
+
+            def parse_upc_data(data):
+                upc_data = {
+                    'upc': data['results'][0]['upc'],
+                    'name': data['results'][0]['name'],
+                    'brand': data['results'][0]['brand'],
+                    'description': data['results'][0]['description'],
+                    'category': data['results'][0]['category'],
+                    'image': data['results'][0]['images'],
+                    'size': data['results'][0]['size'],
+                    'manufacturer': data['results'][0]['manufacturer'],
+                }
+                return upc_data
+
+            print(parse_upc_data(query_data))
+
+        return {'product': upc_data}
+
+    if request.method == 'POST':
+        
+        try:
+            upc = request.POST['upc']
+        except KeyError:
+            raise HTTPBadRequest()
+
+        query = request.dbsession.query(Account)
+        user = query.filter(Account.username == request.authenticated_userid).first()
+
+        try:
+            query = request.dbsession.query(Product)
+            item = query.filter(Product.upc == upc).one_or_none()
+        except DBAPIError:
+            return Response(DB_ERR_MSG, content_type='text/plain', status=500)
+
+        if item is None:
+            response = requests.get(API_URL + '/stock/{}/company'.format(symbol))
+            product = response.json()
+
+            instance = Product(**upc_data)
+            instance.account_id.append(user)
+
+            try:
+                request.dbsession.add(instance)
+            except DBAPIError:
+                return Response(DB_ERR_MSG, content_type='text/plain', status=500)
+
+        else:
+            item.account_id.append(user)
+
