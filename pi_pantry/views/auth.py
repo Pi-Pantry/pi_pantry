@@ -35,7 +35,7 @@ def auth_view(request):
             headers = remember(request, userid=instance.username)
             request.dbsession.add(instance)
 
-            return HTTPFound(location=request.route_url('detail'), headers=headers)
+            return HTTPFound(location=request.route_url('pantry'), headers=headers)
         except DBAPIError:
             return Response(DB_ERR_MSG, content_type='text/plain', status=500)
 
