@@ -4,4 +4,5 @@ def includeme(config):
     config.add_route('auth', '/auth')
     config.add_route('pantry', '/pantry')
     config.add_route('detail', '/detail{upc}')
+    config.add_route('manage_item', '/manage_item')
     config.add_route('logout', '/logout')
