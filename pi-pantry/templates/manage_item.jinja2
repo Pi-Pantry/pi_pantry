@@ -1,0 +1,30 @@
+{% extends "base.jinja2" %}
+
+    {% block content %}
+
+    <h1>Stock Trader</h1>
+
+    <form action="{{request.route_url('add')}}" method="GET">
+            <input for="stock" type="text" name="symbol"><br/>
+            <button id="add" type="submit">Search</button>            
+    </form>
+    {% if data %}
+    <h2>Company name: {{data.companyName}}</h2>
+    <h3>Symbol: {{data.symbol}}</h3>
+    <p>CEO: {{data.CEO}}</p>
+    <p>Website:{{data.website}}</p>
+    <p>Industry: {{data.industry}}</p>
+    <p>Sector: {{data.sector}}</p>
+    <p>Exchange: {{data.exchange}}</p>
+    <p>Issue Type: {{data.issueType}}</p>
+    <p>Description: {{data.description}}</p>
+    <form action="{{request.route_url('add')}}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+        <input type="hidden" "text" style="text-transform:uppercase" value={{data.symbol}} name="symbol">
+        <button type="submit">Add to Portfolio</button>
+    </form>
+        
+
+    {% endif %}
+
+    {% endblock content %}

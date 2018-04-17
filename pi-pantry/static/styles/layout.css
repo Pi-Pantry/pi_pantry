@@ -1,0 +1,58 @@
+<link href="https://fonts.googleapis.com/css?family=Libre+Barcode+128+Text|Libre+Barcode+39+Extended+Text|Mr+De+Haviland|Rouge+Script" rel="stylesheet">
+
+nav, article, aside, footer section {
+    margin: 0 auto;
+}
+  
+nav {
+  margin-top: 25px;
+  color: rgb(212, 130, 99);
+}
+
+img {
+  width: 80px;
+}
+
+#logo {
+  float: left;
+  color: black;
+  text-decoration: none;
+  margin: 1px 10px;
+}
+
+li {
+  margin: 5px 1px;
+  color: rgb(209, 147, 140);
+}
+
+#index-hdr {
+  margin: 20px 0px;
+}
+
+
+form {
+  width: 220px;
+  margin: 44px;
+}
+legend {
+  margin-bottom: 12px;
+  text-align: center;
+
+}
+label {
+  margin-bottom: 9px;
+  float: left;
+}
+button {
+  float: right;
+  display: block;
+  margin-top: 10px;
+}
+#register {
+  margin-top: 30px;
+}
+
+input {
+  margin: 3px;
+  float: right;
+}

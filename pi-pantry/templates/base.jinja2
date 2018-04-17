@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Stock Portfolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{request.static_url('pyramid_stocks:static/theme.css')}}">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <title>My Pantry</title>
+    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/styles/reset.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/styles/base.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/styles/layout.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/styles/modules.css')}}">
+  <body>
+    <header>
+      <nav>
+        <a href="/" id="logo">
+            <img id="stk_logo" src="./static/The-Pantry.jpg" alt="">
+        </a>
+            <h1 id="app_title">My Pantry</h1>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/auth">Log In - Register</a></li>
+          <li><a href="/portfolio">Pantry</a></li>
+          <li><a href="/add">Manage Pantry</a></li>
+          <li><a href="{{request.route_url('logout')}}">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      {% block content %}
+      <p>No content</p>
+      {% endblock content %}
 
-<body>
-    <nav>
-        {% if request.authenticated_userid %}
-        <a href="{{request.route_url('portfolio')}}">Portfolio</a>
-        {% else %}
-        <a href="{{request.route_url('home')}}">Home</a>
-        <a href="{{request.route_url('detail')}}">Detail</a>
-        <a href="{{request.route_url('logout')}}">Logout</a>
-        <a href="{{request.route_url('auth')}}">Login</a>
-        {% endif %}
-    </nav>
-
-    <h1>PiPantry</h1>
-
-    {% block content %}
-    <p>Welcome to your stock pantry!</p>
-    {% endblock content %}
-
-    <footer>
-        <p>&copy; PiPantry 2018</p>
-    </footer>
-</body>
+    </main>
+  </body>
 </html>
