@@ -18,7 +18,7 @@ from ..models import Account
     permission=NO_PERMISSION_REQUIRED)
 def detail_view(request):
     """
-    Directs user to their detail template
+    Directs user to their pantry template
     """
     return {'data': MOCK_DATA}
 
@@ -29,4 +29,7 @@ def detail_view(request):
     request_method='GET',
     permission=NO_PERMISSION_REQUIRED)
 def pantry_view(request):
+    """
+    Directs user to their detail template
+    """
     return {'data': MOCK_DATA}
