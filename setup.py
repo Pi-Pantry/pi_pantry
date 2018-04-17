@@ -8,8 +8,6 @@ with open(os.path.join(here, 'README.txt')) as f:
 with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
 
-reqs = install_reqs
-
 requires = [
     'plaster_pastedeploy',
     'pyramid >= 1.9a',
