@@ -137,13 +137,12 @@ venv.bak/
 
 ### venv ###
 # Linux
-bin/ 
+bin/
 include/
 
 # Window
 Include/
 Lib/
-Scripts/
 
 # Shared
 pyvenv.cfg

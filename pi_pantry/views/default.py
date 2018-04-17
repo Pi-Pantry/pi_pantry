@@ -8,12 +8,13 @@ import requests
 import json
 
 from semantics3 import Products
-from ..models import MyModel
 
 
 sem3 = Products(
     api_key="SEM3D15F366CA4EE3092E9295299DBDD45C3",
     api_secret="NGYzMjliNzlmZTRiODQ5YWE1NzI4MzdiNjMyZDNkNDE"
+)
+
 
 @view_config(
     route_name='home',
@@ -32,7 +33,7 @@ def index_view(request):
     request_method='GET')
 def portfolio_view(request):
     """
-    Directs user to their portfolio template
+    Directs user to their detail template
     """
     return {'data': MOCK_DATA}
 

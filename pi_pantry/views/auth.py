@@ -3,9 +3,7 @@ from pyramid.security import NO_PERMISSION_REQUIRED, remember, forget
 from pyramid.view import view_config
 from pyramid.response import Response
 from sqlalchemy.exc import DBAPIError, IntegrityError
-from ..models import Stock
 from ..models import Account
-from . import DB_ERROR_MSG
 import requests
 
 API_URL = ''
@@ -14,7 +12,7 @@ API_URL = ''
 @view_config(
     route_name='auth',
     renderer='../templates/auth.jinja2',
-    permission=NO_PERMISSION_REQUIRED)
+    )
 def auth_view(request):
     """
     Directs user to authorization template and redirects to portfolio page on success

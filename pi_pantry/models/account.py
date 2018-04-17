@@ -3,7 +3,6 @@ from datetime import datetime as dt
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm import relationship
 from cryptacular import bcrypt
-from .assoc_table import association_table
 from sqlalchemy import (
     Column,
     Integer,
