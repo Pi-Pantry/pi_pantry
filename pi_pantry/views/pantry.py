@@ -23,10 +23,10 @@ def detail_view(request):
     return {'data': MOCK_DATA}
 
 
-# @view_config(
-#     route_name='pantry',
-#     renderer='../templates/detail.jinja2',
-#     request_method='GET',
-#     permission=NO_PERMISSION_REQUIRED)
-# def pantry_view(request):
-#     pass
+@view_config(
+    route_name='pantry',
+    renderer='../templates/pantry.jinja2',
+    request_method='GET',
+    permission=NO_PERMISSION_REQUIRED)
+def pantry_view(request):
+    return {'data': MOCK_DATA}

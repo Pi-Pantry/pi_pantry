@@ -12,7 +12,7 @@
     <nav>
         <a href="{{request.route_url('home')}}">Home</a>
         {% if request.authenticated_userid %}
-        <a href="{{request.route_url('detail')}}">Detail</a>
+        <a href="{{request.route_url('pantry')}}">Pantry</a>
         <a href="{{request.route_url('logout')}}">Logout</a>
         {% else %}
         <a href="{{request.route_url('auth')}}">Login</a>
