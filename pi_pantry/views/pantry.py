@@ -12,12 +12,24 @@ from ..models import Account
 
 
 @view_config(
-    route_name='home',
-    renderer='../templates/base.jinja2',
+    route_name='detail',
+    renderer='../templates/detail.jinja2',
     request_method='GET',
     permission=NO_PERMISSION_REQUIRED)
-def index_view(request):
+def detail_view(request):
     """
-    Directs user to the home template
+    Directs user to their pantry template
     """
-    return {}
+    return {'data': MOCK_DATA}
+
+
+@view_config(
+    route_name='pantry',
+    renderer='../templates/pantry.jinja2',
+    request_method='GET',
+    permission=NO_PERMISSION_REQUIRED)
+def pantry_view(request):
+    """
+    Directs user to their detail template
+    """
+    return {'data': MOCK_DATA}
