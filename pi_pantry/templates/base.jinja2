@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 
+=======
+>>>>>>> aea9cf1bdf666225634d9c579a8e4897e06cc477
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Stock Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
     <link rel="stylesheet" href="{{request.static_url('pyramid_stocks:static/theme.css')}}">
+=======
+    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/theme.css')}}">
+>>>>>>> aea9cf1bdf666225634d9c579a8e4897e06cc477
 </head>
 
 <body>
     <nav>
+<<<<<<< HEAD
         <a href="{{request.route_url('home')}}">Home</a>
         {% if request.authenticated_userid %}
         <!--Finish code to only show full nav to authenticated user-->
@@ -34,3 +42,26 @@
 </body>
 
 </html>
+=======
+        {% if request.authenticated_userid %}
+
+        {% else %}
+        <a href="{{request.route_url('home')}}">Home</a>
+        <a href="{{request.route_url('detail')}}">Detail</a>
+        <a href="{{request.route_url('logout')}}">Logout</a>
+
+        {% endif %}
+    </nav>
+
+    <h1>PiPantry</h1>
+
+    {% block content %}
+    <p>Welcome to your stock pantry!</p>
+    {% endblock content %}
+
+    <footer>
+        <p>&copy; PiPantry 2018</p>
+    </footer>
+</body>
+</html>
+>>>>>>> aea9cf1bdf666225634d9c579a8e4897e06cc477

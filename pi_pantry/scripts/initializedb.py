@@ -43,3 +43,8 @@ def main(argv=sys.argv):
 
         model = MyModel(name='one', value=1)
         dbsession.add(model)
+
+        # from ..sample_data import MOCK_DATA
+        # for data in MOCK_DATA:
+        #     product_data = Product(**data)
+        #     dbsession.add(product_data)
