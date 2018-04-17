@@ -10,12 +10,15 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
 
 requires = [
     'cryptacular',
+    'requests',
     'plaster_pastedeploy',
+    'psycopg2-binary',
     'pyramid >= 1.9a',
     'pyramid_debugtoolbar',
     'pyramid_jinja2',
     'pyramid_retry',
     'pyramid_tm',
+    'semantics3',
     'SQLAlchemy',
     'transaction',
     'zope.sqlalchemy',
