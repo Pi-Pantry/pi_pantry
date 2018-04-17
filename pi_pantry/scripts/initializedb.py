@@ -1,7 +1,6 @@
 import os
 import sys
 import transaction
-
 from pyramid.paster import (
     get_appsettings,
     setup_logging,
@@ -42,5 +41,10 @@ def main(argv=sys.argv):
     with transaction.manager:
         dbsession = get_tm_session(session_factory, transaction.manager)
 
-        model = Product(name='one', value=1)
+        model = Product()
         dbsession.add(model)
+    
+    from ..sample_data import MOCK_DATA
+    for data in MOCK_DATA:
+        prod_data = Product(**data)
+        dbsession.add(prod_data)
