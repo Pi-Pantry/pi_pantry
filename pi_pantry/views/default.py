@@ -27,7 +27,7 @@ def index_view(request):
     request_method='GET')
 def portfolio_view(request):
     """
-    Directs user to their portfolio template
+    Directs user to their detail template
     """
     return {'data': MOCK_DATA}
 
