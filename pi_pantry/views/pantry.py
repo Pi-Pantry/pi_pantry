@@ -3,6 +3,7 @@ from pyramid.response import Response
 from pyramid.view import view_config
 from .default import sem3
 from semantics3.error import Semantics3Error
+from ..models import Product
 # import requests
 
 
