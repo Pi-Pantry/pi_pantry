@@ -1,0 +1,3 @@
+[run]
+source = pi_pantry
+omit = pi_pantry/test*
