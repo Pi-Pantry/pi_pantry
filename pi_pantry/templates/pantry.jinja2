@@ -6,8 +6,8 @@
 <ul>
   {% for product in products %}
   <li>
-    <h2>{{product.results[0]['name']}}</h2>
-    <p>({{product.results[0]['brand']}}) {{product.results[0]['size']}}</p>
+    <h2>{{product.name]}}</h2>
+    <p>({{product.brand]}}) {{product.size]}}</p>
     <p display="hidden" value="product.id"></p>
     <p><a href="{{request.route_url('detail', id=product.id)}}">View Details</a></p>
     <p><a href="{{request.route_url('detail', id=product.id)}}">Add to Shopping List</a></p>
