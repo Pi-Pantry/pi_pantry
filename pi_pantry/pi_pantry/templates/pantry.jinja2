@@ -1,0 +1,18 @@
+{% extends "base.jinja2" %}
+
+{% block content %}
+<h1>My Pantry</h1>
+
+<ul>
+  {% for product in products %}
+  <li>
+    <h2>{{product.name]}}</h2>
+    <p>({{product.brand]}}) {{product.size]}}</p>
+    <p display="hidden" value="product.id"></p>
+    <p><a href="{{request.route_url('detail', id=product.id)}}">View Details</a></p>
+    <p><a href="{{request.route_url('detail', id=product.id)}}">Add to Shopping List</a></p>
+    <p><a href="{{request.route_url('detail', id=product.id)}}">Edit Item</a></p>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

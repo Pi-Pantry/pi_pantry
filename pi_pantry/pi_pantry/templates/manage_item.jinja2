@@ -1,0 +1,30 @@
+{% extends "base.jinja2" %}
+
+    {% block content %}
+
+    <h1>My Pantry</h1>
+</br>
+    <p id="manage">Manage Items</p>
+
+    <form action="{{request.route_url('add')}}" method="GET">
+            <input for="manage_item" type="text" name="upc"><br/>
+            <button id="add" type="submit">Search</button>            
+    </form>
+    {% if data %}
+    <h2>Item name: {{product[0]['name']}}</h2>
+    <p>Brand: {{product[0]['brand']}}</p>
+    <p>Manufacturer: {{product[0]['manufacturer']}}</p>
+    <p>Catagory: {{product[0]['catagory']}}</p>
+    <p>Image: {{product[0]['images']}}</p>
+    <p>UPC: {{product[0]['upc']}}</p>
+    <p>Description: {{product[0]['description']}}</p>
+    <form action="{{request.route_url('add')}}" method="POST">
+        <label id="quantity">Quantity<input type="number"></label>
+        <label id="comments">Comments<input type="text"></label>
+        <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+        <input type="hidden" "text" style="text-transform:uppercase" value={{data.upc}} name="symbol">
+        <button type="submit">Add to Pantry</button>
+    </form>
+    {% endif %}
+
+    {% endblock content %}
