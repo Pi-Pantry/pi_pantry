@@ -9,8 +9,6 @@ import json
 
 from ..models import MyModel
 
-API_URL = 'https://api.iextrading.com/1.0'
-
 
 @view_config(
     route_name='home',
@@ -24,8 +22,8 @@ def index_view(request):
 
 
 @view_config(
-    route_name='portfolio',
-    renderer='../templates/portfolio.jinja2',
+    route_name='detail',
+    renderer='../templates/detail.jinja2',
     request_method='GET')
 def portfolio_view(request):
     """
@@ -34,17 +32,17 @@ def portfolio_view(request):
     return {'data': MOCK_DATA}
 
 
-@view_config(
-    route_name='detail',
-    renderer='../templates/detail.jinja2',
-    request_method='GET')
-def detail_view(request):
-    """
-    Directs user to the detail template
-    """
-    upc = request.matchdict['upc']
+# @view_config(
+#     route_name='detail',
+#     renderer='../templates/detail.jinja2',
+#     request_method='GET')
+# def detail_view(request):
+#     """
+#     Directs user to the detail template
+#     """
+#     upc = request.matchdict['upc']
 
-    for data in MOCK_DATA:
-        if data['upc'] == upc:
-            return {'data': data}
-    return {}
+#     for data in MOCK_DATA:
+#         if data['upc'] == upc:
+#             return {'data': data}
+#     return {}
