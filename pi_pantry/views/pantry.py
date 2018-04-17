@@ -55,3 +55,4 @@ def shopping_view(request):
         return {'product': instance.product_id}
     else:
         return HTTPNotFound()
+
