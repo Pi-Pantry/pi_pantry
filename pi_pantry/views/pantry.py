@@ -1,4 +1,5 @@
 from sqlalchemy.exc import DBAPIError
+from sqlalchemy.orm.exc import FlushError
 from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.response import Response
@@ -39,7 +40,7 @@ def pantry_view(request):
         if assoc.in_cart:
             cart.append(assoc.item)
 
-    return {'pantry': pantry}
+    return {'pantry': pantry, 'cart': cart}
 
 
 @view_config(
@@ -85,6 +86,7 @@ def parse_upc_data(data):
     request_method='GET')
 def manage_items_view(request):
     if request.method == 'GET':
+        # import pdb; pdb.set_trace()
         try:
             upc = request.GET['upc']
         except KeyError:
@@ -110,9 +112,21 @@ def manage_items_view(request):
                 request.dbsession.add(upc_data)
             except DBAPIError:
                 return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-        # import pdb; pdb.set_trace()
-        assoc = Assoc(in_pantry=True, in_cart=False)
-        assoc.item = upc_data
 
-        current_acc.pantry_items.append(assoc)
+        location = request.GET.getall('location')
+        in_pantry = in_cart = False
+        if 'pantry' in location:
+            in_pantry = True
+
+        if 'cart' in location:
+            in_cart = True
+
+        try:
+            assoc = Assoc(in_pantry=in_pantry, in_cart=in_cart)
+            assoc.item = upc_data
+            current_acc.pantry_items.append(assoc)
+            request.dbsession.flush()
+        except FlushError:
+            pass
+
         return HTTPFound(location=request.route_url('pantry'))

@@ -12,15 +12,19 @@
   {% endif %}
 
   <!-- ADD ITEM -->
-  <form method='GET' action='{{request.route_url('manage_item')}}'>
+  <form method='GET' action='{{request.route_url("manage_item")}}'> 
     <fieldset>
       <legend>Add Item</legend>
       UPC SCAN: <input type='text' name='upc'>
+          <input type="checkbox" name="location" value="pantry">
+          <label for="pantry">Pantry</label>
+          <input type="checkbox" name="location" value="cart">
+          <label for="cart">Cart</label>
     </fieldset>
   </form>
 
   <!-- DELETE ITEM -->
-  <form method='DELETE' action='{{request.route_url('manage_item')}}'>
+  <form method='DELETE' action='{{request.route_url("manage_item")}}'>
     <fieldset>
       <legend>Remove Item</legend>
       UPC SCAN: <input type='text' name='upc'>
@@ -29,7 +33,7 @@
 </center>
 
   {% if err %}
-  <form id='new-entry' method='POST' action='{{request.route_url('manage_item')}}'>
+  <form id='new-entry' method='POST' action='{{request.route_url("manage_item")}}'>
     <fieldset>
       <legend>FILL MISSING FORM</legend>
       ITEM UPC:     <input onmousedown='return false;' value='last scan id' name='upc'>
