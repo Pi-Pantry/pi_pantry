@@ -18,6 +18,8 @@ from ..models import (
     )
 
 from ..models import Account
+from ..models import Product
+from ..models import Assoc
 
 
 def usage(argv):

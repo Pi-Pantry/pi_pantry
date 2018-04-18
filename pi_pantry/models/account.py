@@ -2,7 +2,7 @@ from .meta import Base
 from datetime import datetime as dt
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm import relationship
-from .assoc_table import association_table
+from .assoc_table import Assoc
 from cryptacular import bcrypt
 from sqlalchemy import (
     Column,
@@ -18,7 +18,7 @@ manager = bcrypt.BCRYPTPasswordManager()
 class Account(Base):
     __tablename__ = 'account'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    pantry_items = relationship('Product', secondary=association_table)
+    pantry_items = relationship('Assoc')
     username = Column(String, unique=True, nullable=False)
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)

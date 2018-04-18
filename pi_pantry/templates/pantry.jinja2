@@ -2,11 +2,17 @@
 
 {% block content %}
 <ul>
-    {% for item in data %}
+    {% for item in pantry %}
     <h2>{{item.name}}</h2>
     <p>{{item.size}}</p>
     <a href="{{request.route_url('detail', upc=item.upc)}}">More Details</a>
     {% endfor %}
 </ul>
 
+<table>
+     {% for item in cart %}
+    <p>{{item.name}}</p>
+    <p>{{item.size}}</p>
+     {% endfor %}
+</table>
 {% endblock content %}

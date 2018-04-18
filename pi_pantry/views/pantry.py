@@ -11,7 +11,7 @@ import json
 
 from ..models import Account
 from ..models import Product
-from ..models import assoc_table
+from ..models import Assoc
 from .default import sem3
 
 
@@ -19,7 +19,7 @@ from .default import sem3
     route_name='pantry',
     renderer='../templates/pantry.jinja2',
     request_method='GET',
-    permission=NO_PERMISSION_REQUIRED)
+    )
 def pantry_view(request):
     """
     Directs user to their pantry
@@ -30,14 +30,24 @@ def pantry_view(request):
     except DBAPIError:
         return DBAPIError(DB_ERR_MSG, content_type='text/plain', status=500)
 
-    return {'data': current_account.pantry_items}
+    pantry = []
+    cart = []
+    for assoc in current_account.pantry_items:
+        if assoc.in_pantry:
+            pantry.append(assoc.item)
+    return {'pantry': pantry}
+
+    for assoc in current_account.pantry_items:
+        if assoc.in_cart:
+            cart.append(assoc.item)
+    return {'cart': cart}
 
 
 @view_config(
     route_name='detail',
     renderer='../templates/detail.jinja2',
     request_method='GET',
-    permission=NO_PERMISSION_REQUIRED)
+)
 def detail_view(request):
     """
     Directs user to a detailed view of an item
@@ -76,6 +86,7 @@ def parse_upc_data(data):
     request_method='GET')
 def manage_items_view(request):
     if request.method == 'GET':
+        # import pdb; pdb.set_trace()
         try:
             upc = request.GET['upc']
         except KeyError:
@@ -94,12 +105,22 @@ def manage_items_view(request):
             query_data = sem3.get_products()
 
             product = parse_upc_data(query_data)
-            instance = Product(**product)
+            upc_data = Product(**product)
 
             try:
-                request.dbsession.add(instance)
+                request.dbsession.add(upc_data)
             except DBAPIError:
                 return Response(DB_ERR_MSG, content_type='text/plain', status=500)
 
-        current_acc.pantry_items.append(upc_data)
+        is_pantry = Assoc(in_pantry=True, in_cart=False)
+        is_cart = Assoc(in_pantry=False, in_cart=True)
+
+        if is_pantry:
+            is_pantry.item = upc_data
+
+        if is_cart:
+            is_cart.item = upc_data
+
+        current_acc.pantry_items.append(is_pantry)
+        current_acc.pantry_items.append(is_cart)
         return HTTPFound(location=request.route_url('pantry'))
