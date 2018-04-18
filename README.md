@@ -1,8 +1,10 @@
-# Pi-Pantry
+
+# pi_pantry
 
 **Authors**: Brandon Holderman, George Ceja, Steven Starwalt
 
 **Version**: 0.2.0
+
 
 ## Overview
 This is a UPC based inventory management application
@@ -27,4 +29,6 @@ This app is written using Python 3.6, following all best practices and industry 
 Semantics3 UPC database
 
 ## Change Log
+
 v.1  April 16 2018 - Repo Created
+
