@@ -39,8 +39,8 @@ def manage_items_view(request):
             try:
                 sem3.products_field("upc", upc)
                 query_data = sem3.get_products()
-                product = parse_upc_data(query_data)
-                instance = Product(**product)
+                upc_data = parse_upc_data(query_data)
+                instance = Product(**upc_data)
             except (KeyError, IndexError, Semantics3Error):
                 return {'err': '[ ! ]  INVALID UPC INPUT'}
             try:
