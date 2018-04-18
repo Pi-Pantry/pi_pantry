@@ -38,7 +38,7 @@ def pantry_view(request):
         if assoc.in_cart:
             cart.append(assoc.item)
 
-    return {'data': pantry}
+    return {'pantry': pantry}
 
 
 @view_config(
