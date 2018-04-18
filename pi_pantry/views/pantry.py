@@ -1,9 +1,11 @@
 from sqlalchemy.exc import DBAPIError
+from sqlalchemy.orm.exc import FlushError
 from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPBadRequest, HTTPClientError
 from pyramid.security import NO_PERMISSION_REQUIRED, remember, forget
+from semantics3.error import Semantics3Error
 from ..sample_data import MOCK_DATA
 from semantics3.error import Semantics3Error
 from . import DB_ERR_MSG
@@ -39,7 +41,7 @@ def pantry_view(request):
         if assoc.in_cart:
             cart.append(assoc.item)
 
-    return {'data': pantry}
+    return {'pantry': pantry, 'cart': cart}
 
 
 @view_config(
@@ -85,15 +87,17 @@ def parse_upc_data(data):
     request_method=('GET', 'POST'))
 def lookup_view(request):
     if request.method == 'GET':
+        # import pdb; pdb.set_trace()
         try:
             upc = request.GET['upc']
         except KeyError:
             return {}
-        try:
-            query = request.dbsession.query(Product)
-            upc_data = query.filter(Product.upc == upc).one_or_none()
-        except DBAPIError:
-            return Response(DB_ERR_MSG, content_type='text/plain', status=500)
+        # try:
+        query = request.dbsession.query(Product)
+        upc_data = query.filter(Product.upc == upc).one_or_none()
+        # except DBAPIError:
+        #     return Response(DB_ERR_MSG, content_type='text/plain', status=500)
+
         acc_query = request.dbsession.query(Account)
         current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
 
@@ -110,16 +114,21 @@ def lookup_view(request):
                 request.dbsession.add(upc_data)
             except DBAPIError:
                 return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-        current_acc.pantry_items.append(upc_data)
-        return HTTPFound(location=request.route_url('pantry'))
-    if request.method == 'POST':
-        import pdb; pdb.set_trace()
-        item = request.POST['upc']
+
+        location = request.GET.getall('location')
+        in_pantry = in_cart = False
+        if 'pantry' in location:
+            in_pantry = True
+
+        if 'cart' in location:
+            in_cart = True
+
         try:
-            acc_query = request.dbsession.query(Account)
-            current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
-        except (KeyError, DBAPIError):
-            return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-        print(current_acc.pantry_items)
-        # if item in current_acc.pantry_items:
-        #     current_acc.pantry_items.remove(item)
+            assoc = Assoc(in_pantry=in_pantry, in_cart=in_cart)
+            assoc.item = upc_data
+            current_acc.pantry_items.append(assoc)
+            request.dbsession.flush()
+        except FlushError:
+            pass
+
+        return HTTPFound(location=request.route_url('pantry'))
