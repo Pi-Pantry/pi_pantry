@@ -2,8 +2,8 @@
 
 {% block content %}
 <center>
-  <h2>Manage Items</h2>
-  <h6>Here you are able to add, remove, or edit an item from your pantry.</h6>
+  <h2>Look Up Item</h2>
+  <h6>Here you are look up an item and add it to your pantry.</h6>
 </center>
 
 
@@ -13,7 +13,7 @@
   {% endif %}
 
   <!-- ADD ITEM -->
-  <form method='GET' action="{{request.route_url('manage_item')}}">
+  <form method='GET' action="{{request.route_url('lookup_item')}}">
     <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
     <fieldset>
       <legend>Add Item</legend>
@@ -22,7 +22,8 @@
   </form>
 
   <!-- DELETE ITEM -->
-  <form method='POST' action="{{request.route_url('manage_item')}}">
+  <form method='POST' action="{{request.route_url('lookup_item')}}">
+    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
     <fieldset>
       <legend>Remove Item</legend>
       UPC SCAN: <input type='text' name='upc'>
@@ -31,17 +32,17 @@
 </center>
 
   {% if err %}
-  <form id='new-entry' method='POST' action='{{request.route_url('manage_item')}}'>
+  <form id='new-entry' method='POST' action='{{request.route_url('lookup_item')}}'>
     <fieldset>
       <legend>FILL MISSING FORM</legend>
       ITEM UPC:     <input onmousedown='return false;' value='last scan id' name='upc'>
-      NAME:         <input name='' value='Product name'>
-      BRAND:        <input name='' value='Brand'>
-      DESCRIPTION:  <input name='' value='Product Description'>
-      CATEGORY:     <input name='' value='Product Category'>
-      IMAGE:        <input name='' value='Image File'>
-      SIZE:         <input name='' value='Product Weight'>
-      MANUFACTURER: <input name='' value='Manufacturer'>
+      NAME:         <input name=''>
+      BRAND:        <input name=''>
+      DESCRIPTION:  <input name=''>
+      CATEGORY:     <input name=''>
+      IMAGE:        <input name=''>
+      SIZE:         <input name=''>
+      MANUFACTURER: <input name=''>
     </fieldset>
   </form>
   {% endif %}

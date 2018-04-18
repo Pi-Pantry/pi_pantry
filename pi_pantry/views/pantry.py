@@ -72,20 +72,20 @@ def parse_upc_data(data):
 
 
 @view_config(
-    route_name='manage_item',
-    renderer='../templates/manage_item.jinja2',
-    request_method='GET')
-def manage_items_view(request):
+    route_name='lookup_item',
+    renderer='../templates/lookup_item.jinja2',
+    request_method=('GET', 'POST'))
+def lookup_view(request):
     if request.method == 'GET':
         try:
             upc = request.GET['upc']
         except KeyError:
             return {}
-        # try:
-        query = request.dbsession.query(Product)
-        upc_data = query.filter(Product.upc == upc).one_or_none()
-        # except DBAPIError:
-        #     return Response(DB_ERR_MSG, content_type='text/plain', status=500)
+        try:
+            query = request.dbsession.query(Product)
+            upc_data = query.filter(Product.upc == upc).one_or_none()
+        except DBAPIError:
+            return Response(DB_ERR_MSG, content_type='text/plain', status=500)
         acc_query = request.dbsession.query(Account)
         current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
 
@@ -103,10 +103,14 @@ def manage_items_view(request):
                 return Response(DB_ERR_MSG, content_type='text/plain', status=500)
         current_acc.pantry_items.append(upc_data)
         return HTTPFound(location=request.route_url('pantry'))
-
     if request.method == 'POST':
+        import pdb; pdb.set_trace()
+        item = request.POST['upc']
         try:
-            upc = request.GET['upc']
-            request.dbsession.DELETE(upc)
-        except KeyError:
-            return {}
+            acc_query = request.dbsession.query(Account)
+            current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
+        except (KeyError, DBAPIError):
+            return Response(DB_ERR_MSG, content_type='text/plain', status=500)
+        print(current_acc.pantry_items)
+        # if item in current_acc.pantry_items:
+        #     current_acc.pantry_items.remove(item)
