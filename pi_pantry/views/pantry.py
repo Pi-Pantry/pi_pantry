@@ -35,12 +35,10 @@ def pantry_view(request):
     for assoc in current_account.pantry_items:
         if assoc.in_pantry:
             pantry.append(assoc.item)
-    return {'pantry': pantry}
-
-    for assoc in current_account.pantry_items:
         if assoc.in_cart:
             cart.append(assoc.item)
-    return {'cart': cart}
+
+    return {'data': pantry}
 
 
 @view_config(
@@ -86,7 +84,6 @@ def parse_upc_data(data):
     request_method='GET')
 def manage_items_view(request):
     if request.method == 'GET':
-        # import pdb; pdb.set_trace()
         try:
             upc = request.GET['upc']
         except KeyError:
@@ -111,17 +108,10 @@ def manage_items_view(request):
                 request.dbsession.add(upc_data)
             except DBAPIError:
                 return Response(DB_ERR_MSG, content_type='text/plain', status=500)
+        # import pdb; pdb.set_trace()
+        assoc = Assoc(in_pantry=True, in_cart=False)
+        assoc.item = upc_data
 
-        is_pantry = Assoc(in_pantry=True, in_cart=False)
-        is_cart = Assoc(in_pantry=False, in_cart=True)
-
-        if is_pantry:
-            is_pantry.item = upc_data
-
-        if is_cart:
-            is_cart.item = upc_data
-
-        current_acc.pantry_items.append(is_pantry)
-        current_acc.pantry_items.append(is_cart)
+        current_acc.pantry_items.append(assoc)
         return HTTPFound(location=request.route_url('pantry'))
 
