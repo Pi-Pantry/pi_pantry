@@ -53,21 +53,6 @@ def detail_view(request):
     except StopIteration:
         raise HTTPNotFound
 
-
-    # try:
-    #     upc = request.matchdict['upc']
-    # except KeyError:
-    #     return HTTPNotFound()
-
-    # try:
-    #     query = request.dbsession.query(Account)
-    #     auth_detail = query.filter(Account.username == request.authenticated_userid)
-    #     product_detail = auth_detail.filter(Product.upc == upc).one_or_none()
-    # except DBAPIError:
-    #     return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-
-    #     raise HTTPNotFound()
-
     return {'item': product}
 
 
@@ -115,7 +100,6 @@ def manage_items_view(request):
                 request.dbsession.add(instance)
             except DBAPIError:
                 return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-        # return {'product': upc_data}
 
         current_acc.pantry_items.append(upc_data)
         return HTTPFound(location=request.route_url('pantry'))
