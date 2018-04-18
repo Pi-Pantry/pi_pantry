@@ -3,28 +3,27 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Stock Portfolio</title>
+    <title>PiPantry</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/theme.css')}}">
 </head>
 
 <body>
     <nav>
-        {% if request.authenticated_userid %}
-
-        {% else %}
         <a href="{{request.route_url('home')}}">Home</a>
+        {% if request.authenticated_userid %}
+        <a href="{{request.route_url('pantry')}}">Pantry</a>
         <a href="{{request.route_url('manage_item')}}">Manage Items</a>
-        <a href="{{request.route_url('detail')}}">Detail</a>
         <a href="{{request.route_url('logout')}}">Logout</a>
-
+        {% else %}
+        <a href="{{request.route_url('auth')}}">Login</a>
         {% endif %}
     </nav>
 
     <h1>PiPantry</h1>
 
     {% block content %}
-    <p>Welcome to your stock pantry!</p>
+    <p>Welcome to your pantry!</p>
     {% endblock content %}
 
     <footer>

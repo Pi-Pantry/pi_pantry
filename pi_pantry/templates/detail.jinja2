@@ -1,11 +1,16 @@
 {% extends "base.jinja2" %} 
 
 {% block content %}
-<h3>{{data.name}}</h3>
-<p>{{data.size}}</p>
-<p>{{data.upc}}</p>
-<p>{{data.brand}}</p>
-<p>{{data.price}}</p>
-<p>{{data.category}}</p>
-<p>{{data.description}}</p>
-{% endblock content %}
+<ul>
+    {% for item in data %}
+        <h2>{{item.name}}</h2>
+        <p>${{item.price}}</p>
+        <h3>{{item.brand}}</h3>
+        <p>{{item.category}}</p>
+        <p>{{item.upc}}</p>
+        <p>{{item.size}}</p>
+        <p>{{item.description}}</p>
+        {% endfor %}
+    </ul>
+
+    {% endblock content %}

@@ -1,21 +1,21 @@
-from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPBadRequest, HTTPUnauthorized, HTTPConflict
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
+from pyramid.httpexceptions import HTTPBadRequest, HTTPUnauthorized
 from pyramid.security import NO_PERMISSION_REQUIRED, remember, forget
 from pyramid.view import view_config
 from pyramid.response import Response
-from sqlalchemy.exc import DBAPIError, IntegrityError
+from sqlalchemy.exc import DBAPIError
 from ..models import Account
+from . import DB_ERR_MSG
 import requests
-
-API_URL = ''
 
 
 @view_config(
     route_name='auth',
     renderer='../templates/auth.jinja2',
-    )
+    permission=NO_PERMISSION_REQUIRED)
 def auth_view(request):
     """
-    Directs user to authorization template and redirects to portfolio page on success
+    Directs to authorization template and redirects to pantry page on success
     """
     if request.method == 'POST':
         try:
@@ -33,15 +33,13 @@ def auth_view(request):
             )
 
             headers = remember(request, userid=instance.username)
-            try:
-                request.dbsession.add(instance)
-                request.dbsession.flush()
-            except IntegrityError:
-                return HTTPConflict
+            request.dbsession.add(instance)
 
-            return HTTPFound(location=request.route_url('portfolio'), headers=headers)
+            return HTTPFound(
+                location=request.route_url('pantry'),
+                headers=headers)
         except DBAPIError:
-            return Response(DB_ERROR_MSG, content_type='text/plain', status=500)
+            return Response(DB_ERR_MSG, content_type='text/plain', status=500)
 
     if request.method == 'GET':
         try:
@@ -54,7 +52,9 @@ def auth_view(request):
             request, username, password)
         if is_authenticated[0]:
             headers = remember(request, userid=username)
-            return HTTPFound(location=request.route_url('pantry'), headers=headers)
+            return HTTPFound(
+                location=request.route_url('pantry'),
+                headers=headers)
         else:
             return HTTPUnauthorized
     return HTTPFound(location=request.route_url('home'))
