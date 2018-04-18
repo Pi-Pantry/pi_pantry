@@ -5,18 +5,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>My Pantry</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/reset.css')}}">
-        <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/base.css')}}">
-        <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/layout.css')}}">
-        <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/modules.css')}}">
+        <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/theme.css')}}">
     </head>
     <body>
         <header>
           <nav>
-            <a href="{{request.route_url('home')}}">
-                <img id="stk_logo" src="./static/The-Pantry.jpg" alt="">
-            </a>
-                <h1 id="app_title">My Pantry</h1>
+            <h1 id="app_title">My Pantry</h1>
             <ul>
               <li><a href="{{request.route_url('home')}}">Home</a></li>
               <li><a href="{{request.route_url('auth')}}">Login</a></li>
