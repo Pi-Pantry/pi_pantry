@@ -2,8 +2,8 @@
 body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
-  color: #ffffff;
-  background: #bc2131;
+  color: #000000;
+  background: white;
 }
 h1,
 h2,
@@ -11,7 +11,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "courier", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
 }
 p {
@@ -38,14 +38,14 @@ p {
 }
 .starter-template .content h1 .smaller {
   font-size: 40px;
-  color: #f2b7bd;
+  color: grey;
 }
 .starter-template .content .lead {
   font-size: 25px;
-  color: #f2b7bd;
+  color: grey;
 }
 .starter-template .content .lead .font-normal {
-  color: #ffffff;
+  color: grey;
 }
 .starter-template .links {
   float: right;
@@ -69,28 +69,28 @@ p {
   margin-right: 0;
 }
 .starter-template .links ul li.current-version {
-  color: #f2b7bd;
+  color: grey;
   font-weight: 400;
 }
 .starter-template .links ul li a, a {
-  color: #f2b7bd;
+  color: grey;
   text-decoration: underline;
 }
 .starter-template .links ul li a:hover, a:hover {
-  color: #ffffff;
+  color: black;
   text-decoration: underline;
 }
 .starter-template .links ul li .icon-muted {
-  color: #eb8b95;
+  color: grey;
   margin-right: 5px;
 }
 .starter-template .links ul li:hover .icon-muted {
-  color: #ffffff;
+  color: grey;
 }
 .starter-template .copyright {
   margin-top: 10px;
   font-size: 0.9em;
-  color: #f2b7bd;
+  color: grey;
   text-transform: lowercase;
   float: right;
   right: 0;

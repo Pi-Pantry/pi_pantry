@@ -1,18 +1,16 @@
-{% extends "base.jinja2" %} 
+{% extends "base.jinja2" %}
 
 {% block content %}
+<form method='POST' action='{{request.route_url('lookup_item')}}'>
 <ul>
-    {% for item in pantry %}
-    <h2>{{item.name}}</h2>
+    {% for item in data %}
+    <h2 style="display:inline-block;">{{item.name}}</h2>
+    <button>Remove Item</button>
     <p>{{item.size}}</p>
-    <a href="{{request.route_url('detail', upc=item.upc)}}">More Details</a>
+    <a style="display:block" href="{{request.route_url('detail', upc=item.upc)}}">More Details</a>
+
+
     {% endfor %}
 </ul>
-
-<table>
-     {% for item in cart %}
-    <p>{{item.name}}</p>
-    <p>{{item.size}}</p>
-     {% endfor %}
-</table>
+</form>
 {% endblock content %}
