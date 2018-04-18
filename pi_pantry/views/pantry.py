@@ -77,6 +77,7 @@ def parse_upc_data(data):
     request_method='GET')
 def manage_items_view(request):
     if request.method == 'GET':
+        # import pdb; pdb.set_trace()
         try:
             upc = request.GET['upc']
         except KeyError:
@@ -96,46 +97,14 @@ def manage_items_view(request):
             query_data = sem3.get_products()
 
             product = parse_upc_data(query_data)
-            instance = Product(**product)
+            upc_data = Product(**product)
 
             try:
-                request.dbsession.add(instance)
+                request.dbsession.add(upc_data)
             except DBAPIError:
                 return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-        # return {'product': upc_data}
+            return {'product': upc_data}
 
         current_acc.pantry_items.append(upc_data)
         return HTTPFound(location=request.route_url('pantry'))
 
-
-# @view_config(
-#     route_name='manage_item',
-#     renderer='../templates/manage_item.jinja2',
-#     request_method='POST',
-# )
-# def manage_items_view(request):
-#     if request.method == 'POST':
-
-#         prod_query = request.dbsession.query(Product)
-#         prod_instance = prod_query.filter(Product.upc == request.POST['upc']).first()
-
-#         acc_query = request.dbsession.query(Account)
-#         current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
-
-#         if prod_instance is None:
-#             instance = Product(
-#                 upc=request.POST['upc'],
-#                 name=request.POST['name'],
-#                 brand=request.POST['brand'],
-#                 price=request.POST['price'],
-#                 image=request.POST['image'],
-#                 size=request.POST['size'],
-#                 category=request.POST['category'],
-#                 manufacturer=request.POST['manufacturer'],
-#                 description=request.POST['description'],
-#             )
-
-#             request.dbsession.add(instance)
-
-#         current_acc.pantry_items.append(instance)
-#         return HTTPFound(location=request.route_url('pantry'))
