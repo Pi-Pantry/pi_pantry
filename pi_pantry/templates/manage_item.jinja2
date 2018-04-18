@@ -6,13 +6,22 @@
   <h6>Here you are able to add, remove, or edit an item from your pantry.</h6>
 </center>
 
-  <!-- ADD ITEM -->
+  <!-- ADD ITEM TO PANTRY -->
   <form method='GET' action="{{request.route_url('manage_item')}}">
     <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
     <fieldset>
-      <legend>Add Item</legend>
+      <legend>Add Item to Pantry</legend>
       UPC SCAN: <input type="text" name="upc">
       <button name="pantry" type="submit">Add to Pantry</button>
+    </fieldset>
+  </form>
+
+  <!-- ADD ITEM TO CART -->
+  <form method='POST' action="{{request.route_url('manage_item')}}">
+    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+    <fieldset>
+      <legend>Add Item Cart</legend>
+      UPC SCAN: <input type="text" name="upc">
       <button name="cart" type="submit">Add to Cart</button>
     </fieldset>
   </form>
