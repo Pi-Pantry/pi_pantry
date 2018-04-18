@@ -96,7 +96,7 @@ def manage_items_view(request):
         upc_data = query.filter(Product.upc == upc).one_or_none()
         # except DBAPIError:
         #     return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-
+        import pdb; pdb.set_trace()
         acc_query = request.dbsession.query(Account)
         current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
 
