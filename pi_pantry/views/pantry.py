@@ -4,6 +4,7 @@ from pyramid.view import view_config
 from pyramid.response import Response
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPBadRequest, HTTPClientError
 from pyramid.security import NO_PERMISSION_REQUIRED, remember, forget
+from semantics3.error import Semantics3Error
 from ..sample_data import MOCK_DATA
 from . import DB_ERR_MSG
 import requests
@@ -98,12 +99,13 @@ def manage_items_view(request):
         current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
 
         if upc_data is None:
-            sem3.products_field("upc", upc)
-            query_data = sem3.get_products()
-
-            product = parse_upc_data(query_data)
-            upc_data = Product(**product)
-
+            try:
+                sem3.products_field("upc", upc)
+                query_data = sem3.get_products()
+                product = parse_upc_data(query_data)
+                upc_data = Product(**product)
+            except (KeyError, IndexError, Semantics3Error):
+                return {'err': '[ ! ]  INVALID UPC INPUT'}
             try:
                 request.dbsession.add(upc_data)
             except DBAPIError:

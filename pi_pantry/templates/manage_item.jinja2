@@ -1,4 +1,4 @@
-{% extends "base.jinja2" %}
+{% extends 'base.jinja2' %}
 
 {% block content %}
 <center>
@@ -6,32 +6,43 @@
   <h6>Here you are able to add, remove, or edit an item from your pantry.</h6>
 </center>
 
-  <!-- ADD ITEM TO PANTRY -->
-  <form method='GET' action="{{request.route_url('manage_item')}}">
-    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
-    <fieldset>
-      <legend>Add Item to Pantry</legend>
-      UPC SCAN: <input type="text" name="upc">
-    </fieldset>
-  </form>
+  <!-- IF ERROR -->
+  {% if err %}
+  <h3>{{err}}</h3>
+  {% endif %}
 
-  <!-- ADD ITEM TO CART -->
-  <form method='POST' action="{{request.route_url('manage_item')}}">
-    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+  <!-- ADD ITEM -->
+  <form method='GET' action='{{request.route_url('manage_item')}}'>
     <fieldset>
-      <legend>Add Item Cart</legend>
-      UPC SCAN: <input type="text" name="upc">
+      <legend>Add Item</legend>
+      UPC SCAN: <input type='text' name='upc'>
     </fieldset>
   </form>
 
   <!-- DELETE ITEM -->
-  <form method='DELETE' action="{{request.route_url('manage_item')}}">
-    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+  <form method='DELETE' action='{{request.route_url('manage_item')}}'>
     <fieldset>
       <legend>Remove Item</legend>
-      UPC SCAN: <input type="text" name="upc">
+      UPC SCAN: <input type='text' name='upc'>
     </fieldset>
   </form>
 </center>
+
+  {% if err %}
+  <form id='new-entry' method='POST' action='{{request.route_url('manage_item')}}'>
+    <fieldset>
+      <legend>FILL MISSING FORM</legend>
+      ITEM UPC:     <input onmousedown='return false;' value='last scan id' name='upc'>
+      NAME:         <input value='' name='Product name'>
+      BRAND:        <input value='' name='Brand'>
+      DESCRIPTION:  <input value='' name='Product Description'>
+      CATEGORY:     <input value='' name='Product Category'>
+      IMAGE:        <input value='' name='Image File'>
+      SIZE:         <input value='' name='Product Weight'>
+      MANUFACTURER: <input value='' name='Manufacturer'>
+    </fieldset>
+  </form>
+  {% endif %}
+
 
 {% endblock content %}
