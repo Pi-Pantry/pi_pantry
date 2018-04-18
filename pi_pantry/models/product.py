@@ -2,8 +2,6 @@ from sqlalchemy import (
     Column,
     Integer,
     String,
-    Text,
-    ForeignKey,
 )
 
 from .meta import Base

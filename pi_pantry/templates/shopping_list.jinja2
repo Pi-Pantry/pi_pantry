@@ -1,16 +1,27 @@
 {% extends "base.jinja2" %}
 
 {% block content %}
-<h1>My Shopping List</h1>
-
-<ul>
-  {% for product in products %}
-  <li>
-    <h2>{{product[0]['name']}}</h2>
-    <p>({{product[0]['brand']}}) {{product[0]['size']}}</p>
-    <p><a href="{{request.route_url('detail', upc=product[0]['upc'])}}">View Details</a></p>
-    <p><a href="{{request.route_url('detail', upc=product[0]['upc'])}}">Remove from List</a></p>
-  </li>
+<h1>My Shopping List</h1></br>
+<table id="shopping">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Size</th>
+        <th>Quantity</th>
+        <th>Remove</th>
+        <th>Purchased</th>
+      </tr>
+    </thead>
+  <tbody>
+  {% for item in data %}
+  <tr>
+    <td>{{item.name}}</td>
+    <td>{{item.size}}</td>
+    <td>{{item.qty}}</td>
+    <td><input type="submit" value="remove">Remove</td>
+    <td><button id="purchased"></button><input type="submit">Purchased</button></td>
+  </tr>
   {% endfor %}
-</ul>
+  </tbody>
+</table>
 {% endblock %}

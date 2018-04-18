@@ -10,3 +10,26 @@
 </ul>
 
 {% endblock content %}
+
+<table id="shopping">
+    <thead>
+        <tr>
+        <th>Item</th>
+        <th>Size</th>
+        <th>Quantity</th>
+        <th>Details</th>
+        <th>Shopping List</th>
+        </tr><a href="{{request.route_url('detail', upc=item.upc)}}">More Details</a>
+    </thead>
+    <tbody>
+    {% for item in data %}
+    <tr>
+        <td>{{item.name}}</td>
+        <td>{{item.size}}</td>
+        <td>{{item.qty}}</td>
+        <td><a href="{{request.route_url('detail', upc=item.upc)}}"></a>Details</td>
+        <td><button id="purchased"></button><input type="submit">Purchased</button></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
