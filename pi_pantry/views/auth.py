@@ -36,7 +36,7 @@ def auth_view(request):
             headers = remember(request, userid=instance.username)
             request.dbsession.add(instance)
 
-            return HTTPFound(location=request.route_url('product_detail'), headers=headers)
+            return HTTPFound(location=request.route_url('pantry'), headers=headers)
         except DBAPIError:
             return Response(DB_ERR_MSG, content_type='text/plain', status=500)
 
@@ -51,7 +51,7 @@ def auth_view(request):
             request, username, password)
         if is_authenticated[0]:
             headers = remember(request, userid=username)
-            return HTTPFound(location=request.route_url('product_detail'), headers=headers)
+            return HTTPFound(location=request.route_url('pantry'), headers=headers)
         else:
             return HTTPUnauthorized
     return HTTPFound(location=request.route_url('home'))
