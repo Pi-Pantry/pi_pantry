@@ -76,6 +76,7 @@ def parse_upc_data(data):
     request_method='GET')
 def manage_items_view(request):
     if request.method == 'GET':
+        # import pdb; pdb.set_trace()
         try:
             upc = request.GET['upc']
         except KeyError:
@@ -94,12 +95,15 @@ def manage_items_view(request):
             query_data = sem3.get_products()
 
             product = parse_upc_data(query_data)
-            instance = Product(**product)
+            upc_data = Product(**product)
 
             try:
-                request.dbsession.add(instance)
+                request.dbsession.add(upc_data)
             except DBAPIError:
                 return Response(DB_ERR_MSG, content_type='text/plain', status=500)
 
+            return {'product': upc_data}
+
         current_acc.pantry_items.append(upc_data)
         return HTTPFound(location=request.route_url('pantry'))
+
