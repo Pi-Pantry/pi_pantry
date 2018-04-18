@@ -22,7 +22,7 @@
   </form>
 
   <!-- DELETE ITEM -->
-  <form method='DELETE' action="{{request.route_url('manage_item')}}">
+  <form method='POST' action="{{request.route_url('manage_item')}}">
     <fieldset>
       <legend>Remove Item</legend>
       UPC SCAN: <input type='text' name='upc'>
@@ -35,13 +35,13 @@
     <fieldset>
       <legend>FILL MISSING FORM</legend>
       ITEM UPC:     <input onmousedown='return false;' value='last scan id' name='upc'>
-      NAME:         <input value='' name='Product name'>
-      BRAND:        <input value='' name='Brand'>
-      DESCRIPTION:  <input value='' name='Product Description'>
-      CATEGORY:     <input value='' name='Product Category'>
-      IMAGE:        <input value='' name='Image File'>
-      SIZE:         <input value='' name='Product Weight'>
-      MANUFACTURER: <input value='' name='Manufacturer'>
+      NAME:         <input name='' value='Product name'>
+      BRAND:        <input name='' value='Brand'>
+      DESCRIPTION:  <input name='' value='Product Description'>
+      CATEGORY:     <input name='' value='Product Category'>
+      IMAGE:        <input name='' value='Image File'>
+      SIZE:         <input name='' value='Product Weight'>
+      MANUFACTURER: <input name='' value='Manufacturer'>
     </fieldset>
   </form>
   {% endif %}

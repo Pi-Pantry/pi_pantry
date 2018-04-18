@@ -2,7 +2,7 @@ from sqlalchemy.exc import DBAPIError
 from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.response import Response
-from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPBadRequest
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPBadRequest, HTTPClientError
 from pyramid.security import NO_PERMISSION_REQUIRED, remember, forget
 from ..sample_data import MOCK_DATA
 from semantics3.error import Semantics3Error
@@ -12,6 +12,7 @@ import json
 
 from ..models import Account
 from ..models import Product
+from ..models import assoc_table
 from .default import sem3
 
 
@@ -42,20 +43,18 @@ def detail_view(request):
     """
     Directs user to a detailed view of an item
     """
+    if 'upc' not in request.matchdict:
+        return HTTPClientError()
+    upc = request.matchdict['upc']
+    user = request.dbsession.query(Account).filter(
+        Account.username == request.authenticated_userid).first()
+    item = filter(lambda n: n.upc == upc, user.pantry_items)
     try:
-        upc = request.matchdict['upc']
-    except KeyError:
-        return HTTPNotFound()
+        product = next(item)
+    except StopIteration:
+        raise HTTPNotFound
 
-    try:
-        query = request.dbsession(Account)
-        product_detail = query.filter(Account.username == request.authenticated_userid).filter(
-            Product.upc == upc).one_or_none()
-    except DBAPIError:
-        return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-
-    if product_detail is None:
-        raise HTTPNotFound()
+    return {'item': product}
 
 
 def parse_upc_data(data):
@@ -87,7 +86,6 @@ def manage_items_view(request):
         upc_data = query.filter(Product.upc == upc).one_or_none()
         # except DBAPIError:
         #     return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-
         acc_query = request.dbsession.query(Account)
         current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
 
@@ -96,14 +94,19 @@ def manage_items_view(request):
                 sem3.products_field("upc", upc)
                 query_data = sem3.get_products()
                 product = parse_upc_data(query_data)
-                instance = Product(**product)
+                upc_data = Product(**product)
             except (KeyError, IndexError, Semantics3Error):
                 return {'err': '[ ! ]  INVALID UPC INPUT'}
             try:
-                request.dbsession.add(instance)
+                request.dbsession.add(upc_data)
             except DBAPIError:
                 return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-        # return {'product': upc_data}
-
         current_acc.pantry_items.append(upc_data)
         return HTTPFound(location=request.route_url('pantry'))
+
+    if request.method == 'POST':
+        try:
+            upc = request.GET['upc']
+            request.dbsession.DELETE(upc)
+        except KeyError:
+            return {}
