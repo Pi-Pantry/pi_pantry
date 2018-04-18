@@ -98,23 +98,7 @@ def lookup_view(request):
         current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
 
         if upc_data is None:
-        #     sem3.products_field("upc", upc)
-        #     query_data = sem3.get_products()
-
-        #     product = parse_upc_data(query_data)
-        #     upc_data = Product(**product)
-
-        #     try:
-        #         request.dbsession.add(upc_data)
-        #     except DBAPIError:
-        #         return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-        # # import pdb; pdb.set_trace()
-        # assoc = Assoc(in_pantry=True, in_cart=False)
-        # assoc.item = upc_data
-
-        # current_acc.pantry_items.append(assoc)
-        # return HTTPFound(location=request.route_url('pantry'))
-
+            
             try:
                 sem3.products_field("upc", upc)
                 query_data = sem3.get_products()
