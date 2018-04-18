@@ -11,7 +11,7 @@ import json
 
 from ..models import Account
 from ..models import Product
-from ..models import assoc_table
+from ..models import Assoc
 from .default import sem3
 
 
@@ -19,7 +19,7 @@ from .default import sem3
     route_name='pantry',
     renderer='../templates/pantry.jinja2',
     request_method='GET',
-    permission=NO_PERMISSION_REQUIRED)
+    )
 def pantry_view(request):
     """
     Directs user to their pantry
@@ -30,14 +30,24 @@ def pantry_view(request):
     except DBAPIError:
         return DBAPIError(DB_ERR_MSG, content_type='text/plain', status=500)
 
-    return {'data': current_account.pantry_items}
+    pantry = []
+    cart = []
+    for assoc in current_account.pantry_items:
+        if assoc.in_pantry:
+            pantry.append(assoc.item)
+    return {'pantry': pantry}
+
+    for assoc in current_account.pantry_items:
+        if assoc.in_cart:
+            cart.append(assoc.item)
+    return {'cart': cart}
 
 
 @view_config(
     route_name='detail',
     renderer='../templates/detail.jinja2',
     request_method='GET',
-    permission=NO_PERMISSION_REQUIRED)
+)
 def detail_view(request):
     """
     Directs user to a detailed view of an item
@@ -102,8 +112,16 @@ def manage_items_view(request):
             except DBAPIError:
                 return Response(DB_ERR_MSG, content_type='text/plain', status=500)
 
-            return {'product': upc_data}
+        is_pantry = Assoc(in_pantry=True, in_cart=False)
+        is_cart = Assoc(in_pantry=False, in_cart=True)
 
-        current_acc.pantry_items.append(upc_data)
+        if is_pantry:
+            is_pantry.item = upc_data
+
+        if is_cart:
+            is_cart.item = upc_data
+
+        current_acc.pantry_items.append(is_pantry)
+        current_acc.pantry_items.append(is_cart)
         return HTTPFound(location=request.route_url('pantry'))
 
