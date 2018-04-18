@@ -23,9 +23,26 @@
           </nav>
         </header>
 
-        <h1>PiPantry</h1>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Pi Pantry</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/theme.css')}}">
+</head>
 
-        {% block content %}
+<body>
+    <nav>
+        <a href="{{request.route_url('home')}}">Home</a>
+
+        <!--Finish code to only show full nav to authenticated user-->
+        <a href="{{request.route_url('product_detail')}}">Pantry</a>
+
+        <a href="{{request.route_url('logout')}}">Logout</a>
+
+        <a href="{{request.route_url('auth')}}">Login</a>
+
+    </nav>
 
         <p>Welcome to Your Pantry!</p>
 

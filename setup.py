@@ -10,8 +10,8 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
 
 requires = [
     'cryptacular',
-    'requests',
     'plaster_pastedeploy',
+    'psycopg2',
     'psycopg2-binary',
     'pyramid >= 1.9a',
     'pyramid_debugtoolbar',
@@ -21,6 +21,7 @@ requires = [
     'requests',
     'semantics3',
     'SQLAlchemy',
+    'semantics3',
     'transaction',
     'zope.sqlalchemy',
     'waitress',
