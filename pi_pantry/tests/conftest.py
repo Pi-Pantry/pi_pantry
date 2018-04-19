@@ -1,17 +1,17 @@
-# import os
+import os
 import pytest
 import unittest
 from pyramid import testing
 from ..models.meta import Base
-from ..models import Product
 from ..models import Account
+from ..models import Product
 from ..models import Assoc
 
 
 @pytest.fixture
-def test_entry():
+def new_entry():
     """
-    Test stock entry
+    Test product entry
     """
     return Product(
         upc='011345876435',
@@ -25,7 +25,8 @@ def test_entry():
     )
 
 
-def test_account():
+@pytest.fixture
+def account_entry():
     """
     Test account entry
     """
