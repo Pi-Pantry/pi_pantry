@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title class="title">PiPantry</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/theme.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/base.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/layout.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/modules.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Diplomata|Libre+Barcode+39+Text|Vollkorn:600" rel="stylesheet"> 
 </head>
 
@@ -15,8 +17,8 @@
               <a href="/" id="logo">
                   <img id="logo" src="./static/pantry_r.png" alt="">
               </a>
-                  <h1 id="app_title">My Pantry</h1>
-              <ul>
+              <ul class="nav_bar">
+                <li id="app_title">My Pantry</li>
                 <li><a href="{{request.route_url('home')}}" style="text-decoration:none">Home</a></li>
                 {% if request.authenticated_userid %}
                 <li><a href="{{request.route_url('pantry')}}" style="text-decoration:none">Pantry</a></li>
@@ -25,13 +27,15 @@
                 {% else %}
                 <li><a href="{{request.route_url('auth')}}" style="text-decoration:none">Login</a></li>
                 {% endif %}
+                <li id="welcome">Welcome to your pantry!</li>
               </ul>
             </nav>
           </header>
-
+    <div class="block_content">
     {% block content %}
-    <p>Welcome to your pantry!</p>
+   
     {% endblock content %}
+    </div>
 
     <footer>
         <p>&copy; PiPantry 2018</p>
