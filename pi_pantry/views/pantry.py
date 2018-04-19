@@ -27,6 +27,7 @@ def pantry_view(request):
     """
     Directs user to their pantry
     """
+    # import pdb; pdb.set_trace()
     try:
         query = request.dbsession.query(Account)
         current_account = query.filter(Account.username == request.authenticated_userid).first()
