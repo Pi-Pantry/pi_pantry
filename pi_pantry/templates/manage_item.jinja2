@@ -13,6 +13,7 @@
 
   <!-- ADD ITEM -->
   <form method='GET' action='{{request.route_url("manage_item")}}'> 
+  <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
     <fieldset>
       <legend>Add Item</legend>
       UPC SCAN: <input type='text' name='upc'>
@@ -25,6 +26,7 @@
 
   <!-- DELETE ITEM -->
   <form method='DELETE' action='{{request.route_url("manage_item")}}'>
+    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
     <fieldset>
       <legend>Remove Item</legend>
       UPC SCAN: <input type='text' name='upc'>
@@ -34,6 +36,7 @@
 
   {% if err %}
   <form id='new-entry' method='POST' action='{{request.route_url("manage_item")}}'>
+    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
     <fieldset>
       <legend>FILL MISSING FORM</legend>
       ITEM UPC:     <input onmousedown='return false;' value='last scan id' name='upc'>
@@ -47,6 +50,4 @@
     </fieldset>
   </form>
   {% endif %}
-
-
 {% endblock content %}
