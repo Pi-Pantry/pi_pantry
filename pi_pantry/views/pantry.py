@@ -91,17 +91,15 @@ def parse_upc_data(data):
     request_method=('GET', 'POST'))
 def manage_items_view(request):
     if request.method == 'GET':
-        # import pdb; pdb.set_trace()
         try:
             upc = request.GET['upc']
         except KeyError:
             return {}
-        # try:
-        query = request.dbsession.query(Product)
-        upc_data = query.filter(Product.upc == upc).one_or_none()
-        # except DBAPIError:
-        #     return Response(DB_ERR_MSG, content_type='text/plain', status=500)
-
+        try:
+            query = request.dbsession.query(Product)
+            upc_data = query.filter(Product.upc == upc).one_or_none()
+        except DBAPIError:
+            return Response(DB_ERR_MSG, content_type='text/plain', status=500)
         acc_query = request.dbsession.query(Account)
         current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
 
@@ -135,9 +133,7 @@ def manage_items_view(request):
             pass
 
         return HTTPFound(location=request.route_url('pantry'))
-
     if request.method == 'POST':
-        import pdb; pdb.set_trace()
         try:
             upc = request.POST['upc']
         except KeyError:

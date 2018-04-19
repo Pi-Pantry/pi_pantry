@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 # from pyramid.httpexceptions import HTTPNotFound
 # from ..views.pantry import pantry_view
+=======
+from pyramid.httpexceptions import HTTPNotFound
+# from ..views import pantry_view
+>>>>>>> d5adbac3606f0816e91e163bdae2d93d445eb58d
 # Testing cases for Pantry.py
 
 
