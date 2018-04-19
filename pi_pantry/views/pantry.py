@@ -53,18 +53,21 @@ def detail_view(request):
     """
     Directs user to a detailed view of an item
     """
+    # import pdb; pdb.set_trace()
+
+
     if 'upc' not in request.matchdict:
         return HTTPClientError()
     upc = request.matchdict['upc']
     user = request.dbsession.query(Account).filter(
         Account.username == request.authenticated_userid).first()
-    item = filter(lambda n: n.upc == upc, user.pantry_items)
+    item = filter(lambda n: n.item.upc == upc, user.pantry_items)
     try:
         product = next(item)
     except StopIteration:
         raise HTTPNotFound
 
-    return {'item': product}
+    return {'item': product.item}
 
 
 def parse_upc_data(data):
@@ -82,10 +85,10 @@ def parse_upc_data(data):
 
 
 @view_config(
-    route_name='lookup_item',
-    renderer='../templates/lookup_item.jinja2',
-    request_method=('GET', 'POST'))
-def lookup_view(request):
+    route_name='manage_item',
+    renderer='../templates/manage_item.jinja2',
+    request_method='GET')
+def manage_items_view(request):
     if request.method == 'GET':
         # import pdb; pdb.set_trace()
         try:
@@ -102,7 +105,6 @@ def lookup_view(request):
         current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
 
         if upc_data is None:
-            
             try:
                 sem3.products_field("upc", upc)
                 query_data = sem3.get_products()

@@ -1,0 +1,52 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+<center>
+  <h2>Manage Items</h2>
+  <h6>Here you are able to add, remove, or edit an item from your pantry.</h6>
+</center>
+
+  <!-- IF ERROR -->
+  {% if err %}
+  <h3>{{err}}</h3>
+  {% endif %}
+
+  <!-- ADD ITEM -->
+  <form method='GET' action='{{request.route_url("manage_item")}}'> 
+    <fieldset>
+      <legend>Add Item</legend>
+      UPC SCAN: <input type='text' name='upc'>
+          <input type="checkbox" name="location" value="pantry">
+          <label for="pantry">Pantry</label>
+          <input type="checkbox" name="location" value="cart">
+          <label for="cart">Cart</label>
+    </fieldset>
+  </form>
+
+  <!-- DELETE ITEM -->
+  <form method='DELETE' action='{{request.route_url("manage_item")}}'>
+    <fieldset>
+      <legend>Remove Item</legend>
+      UPC SCAN: <input type='text' name='upc'>
+    </fieldset>
+  </form>
+</center>
+
+  {% if err %}
+  <form id='new-entry' method='POST' action='{{request.route_url("manage_item")}}'>
+    <fieldset>
+      <legend>FILL MISSING FORM</legend>
+      ITEM UPC:     <input onmousedown='return false;' value='last scan id' name='upc'>
+      NAME:         <input value='' name='Product name'>
+      BRAND:        <input value='' name='Brand'>
+      DESCRIPTION:  <input value='' name='Product Description'>
+      CATEGORY:     <input value='' name='Product Category'>
+      IMAGE:        <input value='' name='Image File'>
+      SIZE:         <input value='' name='Product Weight'>
+      MANUFACTURER: <input value='' name='Manufacturer'>
+    </fieldset>
+  </form>
+  {% endif %}
+
+
+{% endblock content %}
