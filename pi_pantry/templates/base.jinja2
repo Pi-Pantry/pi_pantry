@@ -9,6 +9,10 @@
 </head>
 
 <body>
+    <a href="/" id="logo">
+        <img id="stk_logo" src="./static/pantry_r.png" alt="">
+    </a>
+        <h1 id="app_title">My Pantry</h1>
     <nav>
         <a href="{{request.route_url('home')}}">Home</a>
         {% if request.authenticated_userid %}
