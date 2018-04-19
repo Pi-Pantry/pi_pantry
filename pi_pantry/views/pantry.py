@@ -20,7 +20,6 @@ def pantry_view(request):
     """
     Directs user to their pantry
     """
-    # import pdb; pdb.set_trace()
     try:
         query = request.dbsession.query(Account)
         current_account = query.filter(
@@ -28,8 +27,7 @@ def pantry_view(request):
     except DBAPIError:
         return DBAPIError(DB_ERR_MSG, content_type='text/plain', status=500)
 
-    pantry = []
-    cart = []
+    pantry, cart = [], []
     for assoc in current_account.pantry_items:
         if assoc.in_pantry:
             pantry.append(assoc.item)
@@ -85,6 +83,7 @@ def parse_upc_data(data):
     request_method=('GET', 'POST'))
 def manage_items_view(request):
     if request.method == 'GET':
+        # import pdb; pdb.set_trace()
         try:
             upc = request.GET['upc']
         except KeyError:
@@ -114,21 +113,30 @@ def manage_items_view(request):
 
         location = request.GET.getall('location')
         in_pantry = in_cart = False
+        # import pdb; pdb.set_trace()
+        if 'both' in location:
+            in_pantry = True
+            in_cart = True
+
         if 'pantry' in location:
             in_pantry = True
 
         if 'cart' in location:
             in_cart = True
 
-        try:
-            assoc = Assoc(in_pantry=in_pantry, in_cart=in_cart)
+        for assoc in current_acc.pantry_items:
+            if upc == assoc.item.upc:
+                break
+        else:
+            assoc = Assoc()
             assoc.item = upc_data
             current_acc.pantry_items.append(assoc)
-            request.dbsession.flush()
-        except FlushError:
-            pass
 
+        assoc.in_cart = in_cart
+        assoc.in_pantry = in_pantry
+        request.dbsession.flush()
         return HTTPFound(location=request.route_url('pantry'))
+
     if request.method == 'POST':
         try:
             upc = request.POST['upc']
@@ -140,8 +148,39 @@ def manage_items_view(request):
             Account.username == request.authenticated_userid).first()
         for assoc in current_acc.pantry_items:
             if upc == assoc.item.upc:
-                current = assoc
                 break
-        current_acc.pantry_items.remove(current)
-        request.dbsession.delete(current)
+        # import pdb; pdb.set_trace()
+        if 'cart' in request.POST:
+            assoc.in_cart = False
+        if 'pantry' in request.POST:
+            assoc.in_pantry = False
+        request.dbsession.flush()
+        # assoc_acc.pantry_items.remove(assoc)
+        # request.dbsession.delete(assoc)
         return HTTPFound(location=request.route_url('pantry'))
+
+# def add_to_pantry_from_cart(upc):
+#     request.route_url("manage_item") 'POST'
+#     request.route_url("manage_item") 'GET' cart, pantry
+
+# def move_to_pantry_from_cart(upc):
+#     request.route_url("manage_item") 'POST'
+#     request.route_url("manage_item") 'GET' pantry
+
+# def add_to_cart_from_pantry(upc):
+#     request.route_url("manage_item") 'POST'
+#     request.route_url("manage_item") 'GET' cart, pantry
+
+# def move_to_cart_from_pantry(upc):
+#     request.route_url("manage_item") 'POST'
+#     request.route_url("manage_item") 'GET' cart
+
+# def del_from_pantry(upc):
+#     request.route_url("manage_item") 'POST'
+#     if cart:
+#     request.route_url("manage_item") 'GET' cart
+
+# def del_from_cart(upc):
+#     request.route_url("manage_item") 'POST'
+#     if pantry:
+#     request.route_url("manage_item") 'GET' pantry

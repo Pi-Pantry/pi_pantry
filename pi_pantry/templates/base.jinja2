@@ -9,7 +9,11 @@
   </head>
 
   <body>
-    <nav>
+    <a href="/" id="logo">
+      <img id="stk_logo" src="./static/pantry_r.png" alt="">
+    </a>
+    <!-- <h1 id="app_title">My Pantry</h1> -->
+    <nav id='directory-hub'>
       <a href="{{request.route_url('home')}}">Home</a>
       {% if request.authenticated_userid %}
       <a href="{{request.route_url('pantry')}}">Pantry</a>
@@ -19,8 +23,6 @@
       <a href="{{request.route_url('auth')}}">Login</a>
       {% endif %}
     </nav>
-
-    <center><h1>PiPantry</h1></center>
 
     {% block content %}
     <p>Welcome to your pantry!</p>
