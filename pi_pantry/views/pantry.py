@@ -136,11 +136,11 @@ def lookup_view(request):
             print('KeyError')
             return {}
         acc_query = request.dbsession.query(Account)
-        # current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
-        items = [instance for instance in current_acc.pantry_items if instance.item.upc == upc]
-        for item in current_acc.pantry_items.item.upc:
-                request.dbsession.DELETE(upc)
-        # import pdb; pdb.set_trace()
-        # request.dbsession.delete(current_acc.pantry_items[0].item.upc)
-
-        return {}
+        current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
+        for assoc in current_acc.pantry_items:
+            if upc == assoc.item.upc:
+                current = assoc
+                break
+        current_acc.pantry_items.remove(current)
+        request.dbsession.delete(current)
+        return HTTPFound(location=request.route_url('pantry'))
