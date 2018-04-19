@@ -24,7 +24,8 @@
   </form>
 
   <!-- DELETE ITEM -->
-  <form method='DELETE' action='{{request.route_url("manage_item")}}'>
+  <form method='POST' action='{{request.route_url("manage_item")}}'>
+    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
     <fieldset>
       <legend>Remove Item</legend>
       UPC SCAN: <input type='text' name='upc'>

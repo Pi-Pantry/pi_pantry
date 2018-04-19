@@ -14,7 +14,10 @@
     <tr>
         <td>{{item.name}}</td>
         <td>{{item.size}}</td>
-        <td id="detail_link"><a id="show_details" style="text-decoration:none" href="{{request.route_url('detail', upc=item.upc)}}">Details</a></td>
+        <td id="pantry_link"><a id="show_details" style="text-decoration:none" href="{{request.route_url('detail', upc=item.upc)}}">Details</a></td>
+        <td><form method='POST' action='{{request.route_url("manage_item")}}'><input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}"><input type="hidden" value={{item.upc}}><button type="submit" "hidden"></button></form>delete</td>
+
+            
     </tr>
     {% endfor %}
     </tbody>
