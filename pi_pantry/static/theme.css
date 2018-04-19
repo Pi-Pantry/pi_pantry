@@ -1,9 +1,11 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);
+@import url(fonts.googleapis.com/css?family=PT+Serif);
+@import url(//fonts.googleapis.com/css?family=Boogaloo|Cinzel+Decorative:900|PT+Serif);
 body {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "courier", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
-  color: #000000;
-  background: white;
+  color: black;
+  background: white);
 }
 h1,
 h2,
@@ -14,6 +16,28 @@ h6 {
   font-family: "courier", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
 }
+#show_details {
+  color: orange;
+}
+#pantry_link {
+  border: 1px solid rgb(106, 202, 10);
+  border-radius: 20px;
+  background-color: orange;
+}
+fieldset {
+    width: 30%;
+    text-align: center;
+    display: block;
+}
+div#image {
+    float:left;
+    height: 100%;
+}
+
+#result{
+    margin-top: 10%;
+    margin-left: 28%;
+}
 p {
   font-weight: 300;
 }
@@ -23,10 +47,10 @@ p {
 .font-semi-bold {
   font-weight: 600;
 }
-.font-bold {
-  font-weight: 700;
+.title {
+  font-family:
 }
-.starter-template {
+/* .starter-template {
   margin-top: 250px;
 }
 .starter-template .content {
@@ -104,7 +128,7 @@ p {
   }
   .starter-template .content .lead {
     font-size: 20px;
-  }
+  } */
 }
 @media (max-width: 991px) {
   .starter-template {

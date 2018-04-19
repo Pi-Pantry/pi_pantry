@@ -1,33 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>PiPantry</title>
+    <title class="title">PiPantry</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/theme.css')}}">
-</head>
+  </head>
 
-<body>
+  <body>
     <nav>
-        <a href="{{request.route_url('home')}}">Home</a>
-        {% if request.authenticated_userid %}
-        <a href="{{request.route_url('pantry')}}">Pantry</a>
-        <a href="{{request.route_url('manage_item')}}">Search Item</a>
-        <a href="{{request.route_url('logout')}}">Logout</a>
-        {% else %}
-        <a href="{{request.route_url('auth')}}">Login</a>
-        {% endif %}
+      <a href="{{request.route_url('home')}}">Home</a>
+      {% if request.authenticated_userid %}
+      <a href="{{request.route_url('pantry')}}">Pantry</a>
+      <a href="{{request.route_url('manage_item')}}">Search Item</a>
+      <a href="{{request.route_url('logout')}}">Logout</a>
+      {% else %}
+      <a href="{{request.route_url('auth')}}">Login</a>
+      {% endif %}
     </nav>
 
-    <h1>PiPantry</h1>
+    <center><h1>PiPantry</h1></center>
 
     {% block content %}
     <p>Welcome to your pantry!</p>
     {% endblock content %}
-
-    <footer>
-        <p>&copy; PiPantry 2018</p>
-    </footer>
-</body>
+  </body>
 </html>

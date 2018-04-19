@@ -20,6 +20,7 @@ def pantry_view(request):
     """
     Directs user to their pantry
     """
+    # import pdb; pdb.set_trace()
     try:
         query = request.dbsession.query(Account)
         current_account = query.filter(
@@ -47,6 +48,9 @@ def detail_view(request):
     """
     Directs user to a detailed view of an item
     """
+    # import pdb; pdb.set_trace()
+
+
     if 'upc' not in request.matchdict:
         return HTTPClientError()
     upc = request.matchdict['upc']
@@ -79,7 +83,7 @@ def parse_upc_data(data):
     route_name='manage_item',
     renderer='../templates/manage_item.jinja2',
     request_method=('GET', 'POST'))
-def lookup_view(request):
+def manage_items_view(request):
     if request.method == 'GET':
         try:
             upc = request.GET['upc']

@@ -1,24 +1,28 @@
 {% extends "base.jinja2" %}
 
 {% block content %}
+<h1>My Pantry</h1>
+{% for item in pantry %}
+<p>{{item.name}}<p>
+<p>{{item.size}}</p>
+        <td id="pantry_link"><a id="show_details" href="{{request.route_url('detail', upc=item.upc)}}">More Details</a></p>
+        <p><form method='POST' action='{{request.route_url("manage_item")}}'>
+            <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+            <input type="hidden" name="upc" value={{item.upc}}>
+            <button>delete</button>
+          </form></p>
 
-<table>
-    <h3>-Pantry-</h3>
-    {% for item in pantry %}
-    <p>{{item.name}}</p>
-    <p>{{item.size}}</p>
-    <a href="{{request.route_url('detail', upc=item.upc)}}">More Details</a>
 
+
+{% endfor %}
+<h1>Shopping List</h1>
+<head>
+<p>Name</p>
+<p>Size</p>
+{% for item in cart %}
+<p>{{item.name}}</p>
+<p>{{item.size}}</p>
 
     {% endfor %}
-</table>
 
-
-<table>
-    <h3>-Cart-</h3>
-     {% for item in cart %}
-    <p>{{item.name}}</p>
-    <p>{{item.size}}</p>
-     {% endfor %}
-</table>
 {% endblock content %}

@@ -1,14 +1,36 @@
 {% extends "base.jinja2" %}
 
 {% block content %}
-    <ul>
-        <p>{{item.name}}</p>
-        <p>{{item.brand}}</p>
-        <p>{{item.size}}</p>
-        <p>{{item.category}}</p>
-        <p>{{item.upc}}</p>
-        <p>{{item.description}}</p>
-        <image src="{{item.image[2:-2]}}">
-    </ul>
+<div id='result'>
+    <div id='image'>
+      <image style="display:inline-block" src="{{item.image[2:-2]}}"></image>
+    </div>
 
-    {% endblock content %}
+    <div id='current-item'>
+    <fieldset>
+      <legend>ITEM NAME</legend>
+        <p>{{item.name}}</p>
+    </fieldset>
+    <fieldset>
+      <legend>BRAND</legend>
+        <p>{{item.brand}}</p>
+    </fieldset>
+    <fieldset>
+      <legend>SIZE</legend>
+        <p>{{item.size}}</p>
+    </fieldset>
+    <fieldset>
+      <legend>CATEGORY</legend>
+        <p>{{item.category}}</p>
+    </fieldset>
+    <fieldset>
+      <legend>DESCRIPTION</legend>
+        <p>{{item.description}}</p>
+    </fieldset>
+    <fieldset>
+      <legend>ITEM UPC</legend>
+        <p>{{item.upc}}</p>
+    </fieldset>
+    </div>
+</div>
+{% endblock content %}
