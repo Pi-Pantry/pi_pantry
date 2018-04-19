@@ -1,5 +1,5 @@
 from pyramid.httpexceptions import HTTPNotFound
-from ..views import pantry_view
+# from ..views import pantry_view
 # Testing cases for Pantry.py
 
 
