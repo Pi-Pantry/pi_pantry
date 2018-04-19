@@ -57,13 +57,13 @@ def detail_view(request):
     upc = request.matchdict['upc']
     user = request.dbsession.query(Account).filter(
         Account.username == request.authenticated_userid).first()
-    item = filter(lambda n: n.upc == upc, user.pantry_items)
+    item = filter(lambda n: n.item.upc == upc, user.pantry_items)
     try:
         product = next(item)
     except StopIteration:
         raise HTTPNotFound
 
-    return {'item': product}
+    return {'item': product.item}
 
 
 def parse_upc_data(data):
