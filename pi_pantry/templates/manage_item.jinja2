@@ -39,14 +39,14 @@
     <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
     <fieldset>
       <legend>FILL MISSING FORM</legend>
-      ITEM UPC:     <input onmousedown='return false;' value='last scan id' name='upc'>
-      NAME:         <input value='' name='Product name'>
-      BRAND:        <input value='' name='Brand'>
-      DESCRIPTION:  <input value='' name='Product Description'>
-      CATEGORY:     <input value='' name='Product Category'>
-      IMAGE:        <input value='' name='Image File'>
-      SIZE:         <input value='' name='Product Weight'>
-      MANUFACTURER: <input value='' name='Manufacturer'>
+      ITEM UPC:     <input onmousedown='return false;' value='' name='newupc'>
+      NAME:         <input value='name' name='Product name'>
+      BRAND:        <input value='brand' name='Brand'>
+      DESCRIPTION:  <input value='description' name='Product Description'>
+      CATEGORY:     <input value='category' name='Product Category'>
+      IMAGE:        <input value='image' name='Image File'>
+      SIZE:         <input value='size' name='Product Weight'>
+      MANUFACTURER: <input value='manufacturer' name='Manufacturer'>
     </fieldset>
   </form>
   {% endif %}

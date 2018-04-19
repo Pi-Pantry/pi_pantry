@@ -1,21 +1,14 @@
-from sqlalchemy.exc import DBAPIError
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPClientError
+from semantics3.error import Semantics3Error
 from sqlalchemy.orm.exc import FlushError
+from sqlalchemy.exc import DBAPIError
 from pyramid.response import Response
 from pyramid.view import view_config
-from pyramid.response import Response
-from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPBadRequest, HTTPClientError
-from pyramid.security import NO_PERMISSION_REQUIRED, remember, forget
-from semantics3.error import Semantics3Error
-from ..sample_data import MOCK_DATA
-from semantics3.error import Semantics3Error
-from . import DB_ERR_MSG
-import requests
-import json
-
 from ..models import Account
 from ..models import Product
 from ..models import Assoc
 from .default import sem3
+from . import DB_ERR_MSG
 
 
 @view_config(
@@ -29,7 +22,8 @@ def pantry_view(request):
     """
     try:
         query = request.dbsession.query(Account)
-        current_account = query.filter(Account.username == request.authenticated_userid).first()
+        current_account = query.filter(
+            Account.username == request.authenticated_userid).first()
     except DBAPIError:
         return DBAPIError(DB_ERR_MSG, content_type='text/plain', status=500)
 
@@ -97,7 +91,8 @@ def lookup_view(request):
         except DBAPIError:
             return Response(DB_ERR_MSG, content_type='text/plain', status=500)
         acc_query = request.dbsession.query(Account)
-        current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
+        current_acc = acc_query.filter(
+            Account.username == request.authenticated_userid).first()
 
         if upc_data is None:
             try:
@@ -110,7 +105,8 @@ def lookup_view(request):
             try:
                 request.dbsession.add(upc_data)
             except DBAPIError:
-                return Response(DB_ERR_MSG, content_type='text/plain', status=500)
+                return Response(DB_ERR_MSG,
+                                content_type='text/plain', status=500)
 
         location = request.GET.getall('location')
         in_pantry = in_cart = False
@@ -136,7 +132,8 @@ def lookup_view(request):
             print('KeyError')
             return {}
         acc_query = request.dbsession.query(Account)
-        current_acc = acc_query.filter(Account.username == request.authenticated_userid).first()
+        current_acc = acc_query.filter(
+            Account.username == request.authenticated_userid).first()
         for assoc in current_acc.pantry_items:
             if upc == assoc.item.upc:
                 current = assoc

@@ -2,7 +2,6 @@ from .meta import Base
 from datetime import datetime as dt
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm import relationship
-from .assoc_table import Assoc
 from cryptacular import bcrypt
 from sqlalchemy import (
     Column,
