@@ -156,32 +156,3 @@ def manage_items_view(request):
             assoc.in_pantry = False
         request.dbsession.flush()
         return HTTPFound(location=request.route_url('pantry'))
-
-
-
-# def add_to_pantry_from_cart(upc):
-#     request.route_url("manage_item") 'POST'
-#     request.route_url("manage_item") 'GET' cart, pantry
-
-# def move_to_pantry_from_cart(upc):
-#     request.route_url("manage_item") 'POST'
-#     request.route_url("manage_item") 'GET' pantry
-
-# def add_to_cart_from_pantry(upc):
-#     request.route_url("manage_item") 'POST'
-#     request.route_url("manage_item") 'GET' cart, pantry
-
-# def move_to_cart_from_pantry(upc):
-#     request.route_url("manage_item") 'POST'
-#     request.route_url("manage_item") 'GET' cart
-
-# def del_from_pantry(upc):
-#     request.route_url("manage_item") 'POST'
-#     if cart:
-#     request.route_url("manage_item") 'GET' cart
-
-# def del_from_cart(upc):
-#     request.route_url("manage_item") 'POST'
-#     if pantry:
-#     request.route_url("manage_item") 'GET' pantry
-
