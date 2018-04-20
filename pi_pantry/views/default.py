@@ -13,8 +13,8 @@ from semantics3 import Products
 
 
 sem3 = Products(
-    api_key="SEM3D15F366CA4EE3092E9295299DBDD45C3",
-    api_secret="NGYzMjliNzlmZTRiODQ5YWE1NzI4MzdiNjMyZDNkNDE"
+    api_key="SEM3B4C97C14B003A87822E95D682C8847F2",
+    api_secret="ZWVmOGUxNDg1YjM1ZTNjZjMwNTI1Zjk4MjA5MThhNTg"
 )
 
 
