@@ -1,13 +1,29 @@
-{% extends "base.jinja2" %} 
+{% extends "base.jinja2" %}
 
 {% block content %}
-    <ul>
-        <p>{{item.name}}</p>
-        <p>{{item.brand}}</p>
-        <p>{{item.size}}</p>
-        <p>{{item.category}}</p>
-        <p>{{item.upc}}</p>
-        <p>{{item.description}}</p>
-        <img src="{{item.image}}">
-    </ul>
+<image src="{{item.image[2:-2]}}"></image>
+<table id="details">
+    <thead>
+        <tr>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Brand</th>
+        <th>Catagory</th>
+        <th>UPC</th>
+        <th>Description</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{item.name}}</td>
+        <td>{{item.size}}</td>
+        <td>{{item.brand}}</td>
+        <td>{{item.catagory}}</td>
+        <td>{{item.upc}}</td>
+        <td>{{item.description}}</td>
+    </tr>
+    </tbody>
+</table>
+
 {% endblock content %}
+
+    

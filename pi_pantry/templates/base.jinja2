@@ -3,28 +3,39 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>PiPantry</title>
+    <title class="title">PiPantry</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/theme.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/base.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/layout.css')}}">
+    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/modules.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Diplomata|Libre+Barcode+39+Text|Vollkorn:600" rel="stylesheet"> 
 </head>
 
 <body>
-    <nav>
-        <a href="{{request.route_url('home')}}">Home</a>
-        {% if request.authenticated_userid %}
-        <a href="{{request.route_url('pantry')}}">Pantry</a>
-        <a href="{{request.route_url('manage_item')}}">Manage Items</a>
-        <a href="{{request.route_url('logout')}}">Logout</a>
-        {% else %}
-        <a href="{{request.route_url('auth')}}">Login</a>
-        {% endif %}
-    </nav>
-
-    <h1>PiPantry</h1>
-
+    <header>
+            <nav>
+              <a href="/" id="logo">
+                  <img id="logo" src="./static/pantry_r.png" alt="">
+              </a>
+              <ul class="nav_bar">
+                <li id="app_title">My Pantry</li>
+                <li><a href="{{request.route_url('home')}}" style="text-decoration:none">Home</a></li>
+                {% if request.authenticated_userid %}
+                <li><a href="{{request.route_url('pantry')}}" style="text-decoration:none">Pantry</a></li>
+                <li><a href="{{request.route_url('manage_item')}}" style="text-decoration:none">Search Item</a></li>
+                <li><a href="{{request.route_url('logout')}}" style="text-decoration:none">Logout</a></li>
+                {% else %}
+                <li><a href="{{request.route_url('auth')}}" style="text-decoration:none">Login</a></li>
+                {% endif %}
+                <li id="welcome">Welcome to your pantry!</li>
+              </ul>
+            </nav>
+          </header>
+    <div class="block_content">
     {% block content %}
-    <p>Welcome to your pantry!</p>
+   
     {% endblock content %}
+    </div>
 
     <footer>
         <p>&copy; PiPantry 2018</p>

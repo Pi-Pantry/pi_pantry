@@ -1,11 +1,10 @@
 from .meta import Base
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import (
     Column,
     Integer,
     ForeignKey,
-    Table,
     Boolean,
 )
 
