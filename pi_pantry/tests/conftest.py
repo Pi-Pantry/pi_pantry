@@ -60,6 +60,11 @@ def configuration(request):
     config.include('pi_pantry.models')
     config.include('pi_pantry.routes')
 
+    config.testing_securitypolicy(
+        userid="brandon",
+        permissive=True,
+    )
+
     def teardown():
         testing.tearDown()
 

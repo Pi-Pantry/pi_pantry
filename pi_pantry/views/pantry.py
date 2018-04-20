@@ -54,9 +54,6 @@ def detail_view(request):
     """
     Directs user to a detailed view of an item
     """
-    # import pdb; pdb.set_trace()
-
-
     if 'upc' not in request.matchdict:
         return HTTPClientError()
     upc = request.matchdict['upc']
@@ -72,15 +69,16 @@ def detail_view(request):
 
 
 def parse_upc_data(data):
+    result = data['results'][0]
     upc_data = {
-        'upc': data['results'][0]['upc'],
-        'name': data['results'][0]['name'],
-        'brand': data['results'][0]['brand'],
-        'description': data['results'][0]['description'],
-        'category': data['results'][0]['category'],
-        'image': data['results'][0]['images'],
-        'size': data['results'][0]['size'],
-        'manufacturer': data['results'][0]['manufacturer'],
+        'upc': result['upc'],
+        'name': result['name'] if 'name' in result else 'Unknown',
+        'brand': result['brand'] if 'brand' in result else None,
+        'description': result['description'] if 'description' in result else None,
+        'category': result['category'] if 'category' in result else None,
+        'image': result['images'] if 'images' in result else None,
+        'size': result['size'] if 'size' in result else None,
+        'manufacturer': result['manufacturer'] if 'manufacturer' in result else None,
     }
     return upc_data
 
@@ -91,7 +89,6 @@ def parse_upc_data(data):
     request_method=('GET', 'POST'))
 def manage_items_view(request):
     if request.method == 'GET':
-        # import pdb; pdb.set_trace()
         try:
             upc = request.GET['upc']
         except KeyError:
@@ -117,9 +114,8 @@ def manage_items_view(request):
             except DBAPIError:
                 return Response(DB_ERR_MSG, content_type='text/plain', status=500)
 
-        location = request.GET.getall('location')
+        location = request.GET.getall('location') if hasattr(request.GET, 'getall') else request.GET['location']
         in_pantry = in_cart = False
-        # import pdb; pdb.set_trace()
         if 'both' in location:
             in_pantry = True
             in_cart = True
@@ -154,15 +150,14 @@ def manage_items_view(request):
         for assoc in current_acc.pantry_items:
             if upc == assoc.item.upc:
                 break
-        # import pdb; pdb.set_trace()
         if 'cart' in request.POST:
             assoc.in_cart = False
         if 'pantry' in request.POST:
             assoc.in_pantry = False
         request.dbsession.flush()
-        # assoc_acc.pantry_items.remove(assoc)
-        # request.dbsession.delete(assoc)
         return HTTPFound(location=request.route_url('pantry'))
+
+
 
 # def add_to_pantry_from_cart(upc):
 #     request.route_url("manage_item") 'POST'

@@ -47,32 +47,61 @@ def test_semple_data_():
     assert type(MOCK_DATA) == list
 
 
-def test_detail_retrieval(dummy_request, db_session, new_entry, account_entry):
-    from ..views.pantry import detail_view
-
-    new_entry.account_id.append(account_entry)
-    db_session.add(new_entry)
-    db_session.add(account_entry)
-
-    # db_session.flush()
-
-    dummy_request.matchdict = {'name': 'fake'}
-    response = detail_view(dummy_request)
-    assert type(response) == dict
-    assert response['data'].upc == 'fake'
-
-
-def test_item_adds_to_database(dummy_request, db_session):
+def test_item_adds_to_database(dummy_request, db_session, account_entry):
     """
     test add item to pantry adds to database
     """
     from ..views.pantry import manage_items_view
     from ..models import Product
+    db_session.add(account_entry)
 
-    dummy_request.method = 'POST'
-    dummy_request.POST['upc'] = '123456789098'
+    dummy_request.method = 'GET'
+
+    dummy_request.GET['upc'] = '123456789098'
+    dummy_request.GET['location'] = 'pantry'
     manage_items_view(dummy_request)
     query = db_session.query(Product)
+
     first = query.filter(Product.upc == '123456789098').first()
     assert first.upc == '123456789098'
-    assert first.name == 'Test'
+    assert first.name == 'Epilady Esthetic - Delicate Facial Epilator'
+    assert account_entry.pantry_items[0].in_pantry is True
+    assert account_entry.pantry_items[0].in_cart is False
+
+
+def test_detail_retrieval(dummy_request, db_session, new_entry, account_entry):
+    from ..views.pantry import detail_view
+    from ..models import Assoc
+
+    assoc = Assoc(in_pantry=True, in_cart=False)
+    assoc.item = new_entry
+    account_entry.pantry_items.append(assoc)
+    db_session.add(new_entry)
+    db_session.add(account_entry)
+
+    dummy_request.matchdict = {'upc': '011345876435'}
+    response = detail_view(dummy_request)
+    assert type(response) == dict
+    assert response['item'].upc == '011345876435'
+
+
+# def test_delete_successful(dummy_request, db_session, new_entry, account_entry):
+#     from ..views.pantry import manage_items_view
+#     from ..models import Assoc
+#     from ..models import Product
+
+#     db_session.add(new_entry)
+
+#     dummy_request.GET['upc'] = '123456789098'
+#     dummy_request.GET['location'] = 'pantry'
+#     manage_items_view(dummy_request)
+#     query = db_session.query(Product)
+
+
+#     first = query.filter(Product.upc == '123456789098').first()
+#     db_session.delete(new_entry)
+#     assert first.upc != '123456789098'
+#     assert first.name != 'Epilady Esthetic - Delicate Facial Epilator'
+    # assert account_entry.pantry_items[0].in_pantry is False
+    # assert account_entry.pantry_items[0].in_cart is True
+
