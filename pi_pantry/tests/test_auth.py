@@ -4,10 +4,11 @@ def test_get_auth_view(dummy_request):
     """
     from ..views.auth import auth_view
     response = auth_view(dummy_request)
+
     assert isinstance(response, dict)
 
 
-def test_auth_signup_view(dummy_request):
+def test_auth_signup(dummy_request):
     """
     Test successful signup
     """
@@ -18,11 +19,12 @@ def test_auth_signup_view(dummy_request):
                           'password': '1234', 'email': 'brandon@brandon.brandon'}
     dummy_request.method = 'POST'
     response = auth_view(dummy_request)
+
     assert response.status_code == 302
     assert isinstance(response, HTTPFound)
 
 
-def test_auth_signin_view(dummy_request):
+def test_auth_signin(dummy_request):
     """
     Test successful sign in
     """
@@ -37,11 +39,12 @@ def test_auth_signin_view(dummy_request):
     dummy_request.GET = {'username': 'brandon', 'password': '1234'}
     dummy_request.method = 'GET'
     response = auth_view(dummy_request)
+
     assert response.status_code == 302
     assert isinstance(response, HTTPFound)
 
 
-def test_logout_default(dummy_request):
+def test_logout(dummy_request):
     """
     Test logout method returns HTTPFound
     """
@@ -49,10 +52,11 @@ def test_logout_default(dummy_request):
     from pyramid.httpexceptions import HTTPFound
 
     response = logout(dummy_request)
+
     assert isinstance(response, HTTPFound)
 
 
-def test_bad_request_auth_signup_view(dummy_request):
+def test_bad_request_auth_signup(dummy_request):
     """
     Test bad signup
     """
@@ -62,11 +66,12 @@ def test_bad_request_auth_signup_view(dummy_request):
     dummy_request.POST = {'password': 'test', 'email': 'test@test.com'}
     dummy_request.method = 'POST'
     response = auth_view(dummy_request)
+
     assert response.status_code == 400
     assert isinstance(response, HTTPBadRequest)
 
 
-def test_bad_request_method_auth_signup_view(dummy_request):
+def test_bad_request_method_auth_signup(dummy_request):
     """
     Test bad method for signup
     """
@@ -76,5 +81,6 @@ def test_bad_request_method_auth_signup_view(dummy_request):
     dummy_request.POST = {'password': 'test', 'email': 'test@test.com'}
     dummy_request.method = 'PUT'
     response = auth_view(dummy_request)
+
     assert response.status_code == 302
     assert isinstance(response, HTTPFound)
