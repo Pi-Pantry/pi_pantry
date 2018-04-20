@@ -111,6 +111,7 @@ def manage_items_view(request):
                 product = parse_upc_data(query_data)
                 upc_data = Product(**product)
             except (KeyError, IndexError, Semantics3Error):
+                # import pdb; pdb.set_trace()
                 return {'err': 'UPC not in database.  Enter your own fields below.'}
             try:
                 request.dbsession.add(upc_data)

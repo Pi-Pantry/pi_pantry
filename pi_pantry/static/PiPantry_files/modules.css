@@ -11,7 +11,7 @@ li a {
   color: rgb(19, 102, 32);
 }
 
-#logo {
+img {
   width: 123px;
 }
 
@@ -37,31 +37,6 @@ li {
 
 #welcome {
   font-family: 'Berkshire Swash', cursive;
-}
-th {
-  border-bottom: 3px solid blue;
-}
-td {
-  border-bottom: 2px solid blue;
-  text-align: center;
-}
-td.name_col {
-  width: 450px;
-}
-td.size_col {
-  width: 65px;
-}
-td.detail_col {
-  width: 30px;
-}
-td.del_col {
-  width: 30px;
-}
-td.move_col {
-  width: 96px;
-}
-td.add_col {
-  width: 96px;
 }
 #upc {
   font-family: 'Libre Barcode 39 Text', cursive;
