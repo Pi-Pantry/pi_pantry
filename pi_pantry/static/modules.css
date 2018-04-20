@@ -25,7 +25,9 @@ li a {
 .nav_bar {
   font-family: 'Vollkorn', serif;
 }
-
+#reg{
+  margin-top: 66px;
+}
 li {
   margin: 5px 1px;
   color: rgb(85, 75, 212);
