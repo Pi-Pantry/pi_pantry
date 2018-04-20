@@ -28,3 +28,15 @@ def index_view(request):
     Directs user to the home template
     """
     return {}
+
+
+@view_config(
+    route_name='about',
+    renderer='../templates/about_us.jinja2',
+    request_method='GET',
+    permission=NO_PERMISSION_REQUIRED)
+def about_view(request):
+    """
+    Directs user to the home template
+    """
+    return {}

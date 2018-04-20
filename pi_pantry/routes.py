@@ -6,3 +6,4 @@ def includeme(config):
     config.add_route('detail', '/detail/{upc}')
     config.add_route('manage_item', '/manage_item')
     config.add_route('logout', '/logout')
+    config.add_route('about', '/about_us')
