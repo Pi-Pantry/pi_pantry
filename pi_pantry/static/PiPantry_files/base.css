@@ -1,0 +1,23 @@
+body {
+  font-family: 'Vollkorn', serif;
+  font-weight: 300;
+  color: rgb(26, 26, 197);
+  background: rgb(140, 224, 213);
+}
+ul {
+  list-style-type: none;
+}
+.block_content {
+  margin-left: 30px;
+}
+footer {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+}
+
+
+/* font-family: 'Berkshire Swash', cursive;
+font-family: 'Vollkorn', serif;
+font-family: 'Libre Barcode 39 Text', cursive;
+font-family: 'Diplomata', cursive; */

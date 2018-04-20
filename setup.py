@@ -8,13 +8,18 @@ with open(os.path.join(here, 'README.txt')) as f:
 with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
 
+
 requires = [
+    'cryptacular',
     'plaster_pastedeploy',
+    'psycopg2-binary',
     'pyramid >= 1.9a',
     'pyramid_debugtoolbar',
     'pyramid_jinja2',
     'pyramid_retry',
     'pyramid_tm',
+    'requests',
+    'semantics3',
     'SQLAlchemy',
     'transaction',
     'zope.sqlalchemy',
@@ -40,7 +45,7 @@ setup(
     ],
     author='Brandon Holderman, George Ceja, Steven Starwalt',
     author_email='pi_pantry@pi_pantry.pi_pantry',
-    url='https://github.com/Pi-Pantry/pi-pantry',
+    url='https://github.com/Pi-Pantry/pi_pantry',
     keywords='web pyramid pylons',
     packages=find_packages(),
     include_package_data=True,

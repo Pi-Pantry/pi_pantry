@@ -1,0 +1,82 @@
+{% extends "base.jinja2" %} 
+
+{% block content %}
+<h1>Pantry Contents</h1>
+<table id="pantry">
+    <thead>
+        <th class="name_col">Name</th>
+        <th class="size_col">Size</th>
+        <th class="detail_col"></th>
+        <th class="del_col"></th>
+        <th class="move_col"></th>
+        <th class="add_col"></th>
+    </thead>
+    <tbody>
+    {% for item in pantry %}
+    <tr>
+        <td class="name_col">{{item.name}}</td>
+        <td class="size_col">{{item.size}}</td>
+        <td class="detail_col"><form id="show_details" action="{{request.route_url('detail', upc=item.upc)}}">
+            <button type="submit">Details</button></form></td>
+        <td class="del_col"><form method='POST' action='{{request.route_url("manage_item")}}'>
+            <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+            <input type="hidden" name="upc" value={{item.upc}}>
+            <button id="delete" type="submit" name="pantry">Delete</button>
+          </form></td>
+        <td class="move_col"><form method='GET' action='{{request.route_url("manage_item")}}'>
+            <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+            <input type="hidden" value={{item.upc}} name='upc'>
+            <input type="hidden" name="location" value="cart">
+            <button id="add_2_cart" type="submit" name="pantry">Move to Shopping List</button>
+            </form>
+        </td>
+        <td class="add_col"><form method='GET' action='{{request.route_url("manage_item")}}'>
+            <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+            <input type="hidden" value={{item.upc}} name='upc'>
+            <input type="hidden" name="location" value="both">
+            <button id="add_2_cart" type="submit" name="pantry">Add to Shopping List</button>
+            </form>
+        </td>       
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<h1>Shopping List</h1>
+<table id="shopping_list">
+    <thead>
+        <th class="name_col">Name</th>
+        <th class="size_col">Size</th>
+        <th class="del_col"></th>
+        <th class="move_col"></th>
+        <th class="add_col"></th>
+    </thead>
+    <tbody>
+    {% for item in cart %}
+    <tr>
+        <td class="name_col">{{item.name}}</td>
+        <td class="size_col">{{item.size}}</td>
+        <td><form method='POST' action='{{request.route_url("manage_item")}}'>
+            <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+            <input type="hidden" name="upc" value={{item.upc}}>
+            <button id="delete" type="submit" name="cart">Delete</button>
+          </form></td>
+          <td class="move_col"><form method='GET' action='{{request.route_url("manage_item")}}'>
+            <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+            <input type="hidden" value={{item.upc}} name='upc'>
+            <input type="hidden" name="location" value="pantry">
+            <button id="add_2_pantry" type="submit" name="cart">Move to Pantry</button>
+            </form>
+        </td>
+        <td class="add_col"><form method='GET' action='{{request.route_url("manage_item")}}'>
+            <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+            <input type="hidden" value={{item.upc}} name='upc'>
+            <input type="hidden" name="location" value="both">
+            <button id="add_2_pantry" type="submit" name="pantry">Add to Pantry</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}
