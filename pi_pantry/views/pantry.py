@@ -1,6 +1,5 @@
 from pyramid.httpexceptions import HTTPFound, HTTPNotFound, HTTPClientError
 from semantics3.error import Semantics3Error
-from sqlalchemy.orm.exc import FlushError
 from sqlalchemy.exc import DBAPIError
 from pyramid.response import Response
 from pyramid.view import view_config
@@ -18,7 +17,9 @@ from . import DB_ERR_MSG
     )
 def pantry_view(request):
     """
-    Directs user to their pantry
+    Pantry View displays the current user's data. Users here can manage their
+    pantry items from their cart to pantry or vice versa. On addition users can
+    remove products.
     """
     try:
         query = request.dbsession.query(Account)
@@ -44,10 +45,9 @@ def pantry_view(request):
 )
 def detail_view(request):
     """
-    Directs user to a detailed view of an item
+    Fetches current users data from junction table and displays product
+    specific details.
     """
-    # import pdb; pdb.set_trace()
-
 
     if 'upc' not in request.matchdict:
         return HTTPClientError()
@@ -83,7 +83,6 @@ def parse_upc_data(data):
     request_method=('GET', 'POST'))
 def manage_items_view(request):
     if request.method == 'GET':
-        # import pdb; pdb.set_trace()
         try:
             upc = request.GET['upc']
         except KeyError:
@@ -113,7 +112,6 @@ def manage_items_view(request):
 
         location = request.GET.getall('location')
         in_pantry = in_cart = False
-        # import pdb; pdb.set_trace()
         if 'both' in location:
             in_pantry = True
             in_cart = True
@@ -149,38 +147,9 @@ def manage_items_view(request):
         for assoc in current_acc.pantry_items:
             if upc == assoc.item.upc:
                 break
-        # import pdb; pdb.set_trace()
         if 'cart' in request.POST:
             assoc.in_cart = False
         if 'pantry' in request.POST:
             assoc.in_pantry = False
         request.dbsession.flush()
-        # assoc_acc.pantry_items.remove(assoc)
-        # request.dbsession.delete(assoc)
         return HTTPFound(location=request.route_url('pantry'))
-
-# def add_to_pantry_from_cart(upc):
-#     request.route_url("manage_item") 'POST'
-#     request.route_url("manage_item") 'GET' cart, pantry
-
-# def move_to_pantry_from_cart(upc):
-#     request.route_url("manage_item") 'POST'
-#     request.route_url("manage_item") 'GET' pantry
-
-# def add_to_cart_from_pantry(upc):
-#     request.route_url("manage_item") 'POST'
-#     request.route_url("manage_item") 'GET' cart, pantry
-
-# def move_to_cart_from_pantry(upc):
-#     request.route_url("manage_item") 'POST'
-#     request.route_url("manage_item") 'GET' cart
-
-# def del_from_pantry(upc):
-#     request.route_url("manage_item") 'POST'
-#     if cart:
-#     request.route_url("manage_item") 'GET' cart
-
-# def del_from_cart(upc):
-#     request.route_url("manage_item") 'POST'
-#     if pantry:
-#     request.route_url("manage_item") 'GET' pantry

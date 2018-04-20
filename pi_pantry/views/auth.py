@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPFound, HTTPNotFound
+from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPBadRequest, HTTPUnauthorized
 from pyramid.security import NO_PERMISSION_REQUIRED, remember, forget
 from pyramid.view import view_config
@@ -6,7 +6,6 @@ from pyramid.response import Response
 from sqlalchemy.exc import DBAPIError
 from ..models import Account
 from . import DB_ERR_MSG
-import requests
 
 
 @view_config(
