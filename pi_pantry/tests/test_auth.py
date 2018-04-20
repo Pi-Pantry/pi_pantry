@@ -15,8 +15,8 @@ def test_auth_signup(dummy_request):
     from ..views.auth import auth_view
     from pyramid.httpexceptions import HTTPFound
 
-    dummy_request.POST = {'username': 'brandon',
-                          'password': '1234', 'email': 'brandon@brandon.brandon'}
+    dummy_request.POST = {'username': 'user',
+                          'password': '1234', 'email': 'user@user.user'}
     dummy_request.method = 'POST'
     response = auth_view(dummy_request)
 
@@ -31,12 +31,12 @@ def test_auth_signin(dummy_request):
     from ..views.auth import auth_view
     from pyramid.httpexceptions import HTTPFound
 
-    dummy_request.POST = {'username': 'brandon',
-                          'password': '1234', 'email': 'brandon@brandon.brandon'}
+    dummy_request.POST = {'username': 'user',
+                          'password': '1234', 'email': 'user@user.user'}
     dummy_request.method = 'POST'
     auth_view(dummy_request)
 
-    dummy_request.GET = {'username': 'brandon', 'password': '1234'}
+    dummy_request.GET = {'username': 'user', 'password': '1234'}
     dummy_request.method = 'GET'
     response = auth_view(dummy_request)
 
