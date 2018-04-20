@@ -48,7 +48,6 @@ def detail_view(request):
     Fetches current users data from junction table and displays product
     specific details.
     """
-
     if 'upc' not in request.matchdict:
         return HTTPClientError()
     upc = request.matchdict['upc']
@@ -64,6 +63,10 @@ def detail_view(request):
 
 
 def parse_upc_data(data):
+    """
+    Parses Semantics3 response data from their API. Returns back parsed data
+    to manage_items_view.
+    """
     upc_data = {
         'upc': data['results'][0]['upc'],
         'name': data['results'][0]['name'],
@@ -82,6 +85,10 @@ def parse_upc_data(data):
     renderer='../templates/manage_item.jinja2',
     request_method=('GET', 'POST'))
 def manage_items_view(request):
+    """
+    Preforms API call to Semantics3. Parses API call data. Appends parsed data
+    to current users pantry or cart.
+    """
     if request.method == 'GET':
         try:
             upc = request.GET['upc']
@@ -135,6 +142,8 @@ def manage_items_view(request):
         request.dbsession.flush()
         return HTTPFound(location=request.route_url('pantry'))
 
+    # Checks for current user in order to locate if the UPC ID entered is valid
+    # if so removes it from their account.
     if request.method == 'POST':
         try:
             upc = request.POST['upc']

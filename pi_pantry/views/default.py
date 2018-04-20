@@ -4,6 +4,7 @@ from pyramid.security import NO_PERMISSION_REQUIRED
 from semantics3 import Products
 
 
+# Temporary API key in order to make API CALLS
 sem3 = Products(
     api_key="SEM3D15F366CA4EE3092E9295299DBDD45C3",
     api_secret="NGYzMjliNzlmZTRiODQ5YWE1NzI4MzdiNjMyZDNkNDE"
