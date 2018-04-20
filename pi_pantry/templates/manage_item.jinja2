@@ -1,0 +1,40 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+<center>
+  <h2>Manage Items</h2>
+  <h3>Here you are able to search for items by UPC and ad them to your Pantry or Shopping List.</h3>
+  <p id="upc">To make entering UPC codes easier</br>Use your bar code scanner </p>
+</center>
+  <!-- ADD ITEM -->
+  <form class="scan_box" method='GET' action='{{request.route_url("manage_item")}}'>
+    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+    <fieldset id="scan_box">
+      <legend>Add Item</legend>
+      UPC SCAN: <input type='text' name='upc'></br></br>
+          <input type="checkbox" name="location" value="pantry">
+          <label for="pantry">Pantry</label>
+          <input type="checkbox" name="location" value="cart">
+          <label for="cart">Shopping</label>
+    </fieldset>
+  </form>
+
+  {% if err %}
+  <h3 id="upc_error">{{err}}</h3>
+  <form class='new-entry' method='GET' action='{{request.route_url("manage_item")}}'>
+    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+    <fieldset>
+      <legend>FILL MISSING FORM</legend>
+      ITEM UPC:     <input onmousedown='return false;' value="LAST SCANNED UPC">
+      NAME:         <input value='' name='Product name'>
+      BRAND:        <input value='' name='Brand'>
+      DESCRIPTION:  <input value='' name='Product Description'>
+      CATEGORY:     <input value='' name='Product Category'>
+      IMAGE:        <input value='' name='Image File'>
+      SIZE:         <input value='' name='Product Weight'>
+      MANUFACTURER: <input value='' name='Manufacturer'>
+      <button id="not_db" type="submit">Submit</button>
+    </fieldset>
+  </form>
+  {% endif %}
+{% endblock content %}
