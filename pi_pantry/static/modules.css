@@ -42,3 +42,19 @@ li {
   font-family: 'Libre Barcode 39 Text', cursive;
   font-size: 30px;
 }
+.scan_box {
+  float: left;
+  margin: 20px;
+}
+#scan_box {
+  width: 230px;
+  border: solid 5px blue;
+  border-radius: 20px;
+  color:  rgb(17, 17, 82);
+}
+#upc_error {
+  color:  red;
+}
+.new_entry input {
+  float: right;
+}

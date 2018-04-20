@@ -3,21 +3,15 @@
 {% block content %}
 <center>
   <h2>Manage Items</h2>
-  <h6>Here you are able to add, remove, or edit an item from your pantry.</h6></br>
+  <h3>Here you are able to search for items by UPC and ad them to your Pantry or Shopping List.</h3>
   <p id="upc">Use your bar code scanner to make entrering UPC codes easier</p>
 </center>
-
-  <!-- IF ERROR -->
-  {% if err %}
-  <h3>{{err}}</h3>
-  {% endif %}
-
   <!-- ADD ITEM -->
-  <form method='GET' action='{{request.route_url("manage_item")}}'>
+  <form class="scan_box" method='GET' action='{{request.route_url("manage_item")}}'>
     <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
-    <fieldset>
+    <fieldset id="scan_box">
       <legend>Add Item</legend>
-      UPC SCAN: <input type='text' name='upc'>
+      UPC SCAN: <input type='text' name='upc'></br></br>
           <input type="checkbox" name="location" value="pantry">
           <label for="pantry">Pantry</label>
           <input type="checkbox" name="location" value="cart">
@@ -26,7 +20,8 @@
   </form>
 
   {% if err %}
-  <form id='new-entry' method='POST' action='{{request.route_url("manage_item")}}'>
+  <h3 id="upc_error">{{err}}</h3>
+  <form class='new-entry' method='POST' action='{{request.route_url("manage_item")}}'>
     <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
     <fieldset>
       <legend>FILL MISSING FORM</legend>
