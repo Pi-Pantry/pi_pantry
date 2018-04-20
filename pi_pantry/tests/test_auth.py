@@ -96,12 +96,13 @@ def test_bad_request_method_auth_signup(dummy_request):
 
 #     dummy_request.dbsession.add(account_entry)
 #     dummy_request.dbsession.commit()
-#     dummy_request.POST = {'password': '1234',
+#     dummy_request.POST = {'username': 'brandon', 'password': '1234',
 #                           'email': 'brandon@brandon.brandon'}
 #     dummy_request.method = 'POST'
 #     response = auth_view(dummy_request)
+#     import pdb; pdb.set_trace()
 #     existing = dummy_request.dbsession.query(Account).filter(Account.username == dummy_request.authenticated_userid).first()
 
-#     # assert account_entry == existing
+#     assert account_entry == existing
 #     assert response.status_code == 400
 #     assert isinstance(response, HTTPBadRequest)

@@ -38,6 +38,17 @@ def account_entry():
 
 
 @pytest.fixture
+def assoc_entry():
+    """
+    Test association
+    """
+    return Assoc(
+        account_id='1',
+        product_id='1',
+    )
+
+
+@pytest.fixture
 def configuration(request):
     """
     Setup a database for testing purposes
