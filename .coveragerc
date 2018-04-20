@@ -1,0 +1,7 @@
+[run]
+omit = 
+    pi_pantry/test*
+    pi_pantry/__init__.py
+    pi_pantry/models/__init__.py
+    pi_pantry/models/meta.py
+    pi_pantry/scripts/*
