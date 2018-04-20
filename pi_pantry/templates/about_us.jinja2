@@ -1,0 +1,50 @@
+
+{% extends "base.jinja2" %}
+
+{% block content %}
+<h1 class="us" id="about-us">A little about the Team!</h1>
+<div id="container">
+    <section id="section1">
+        <div class="card-container">
+            <div class="card">
+            <div class="side"><img class="about_img" src="{{request.static_url('pi_pantry:static/brandon.jpg')}}" alt="Brandon"></div>
+            <div class="side back"><p>"I'm Brandon Holderman and I’m a software developer with a background in customer service. My passion for development began the day I started my first HTML and CSS class which I instantly fell in love. It amazed me, that i could write a few lines of code and be able to see it on a web page for the world to see. My passion has only continued to grow and with that I would like to for develop and design simplistic apps that can truly be used by people of all ages to optimize their lives."</p>
+            <p class="contact-infromation">Contact Information</p> 
+            <a class="about_a" href="https://www.linkedin.com/in/brandonholderman/">LinkedIn</a>
+            <a class="about_a" href="bhold6160@gmail.com">Email</a>
+            <a class="about_a" href="https://github.com/bhold6160">GitHub</a>
+            </div>
+            </div>
+        </div>
+    </section>
+        
+    <section id="section2">
+        <div class="card-container">
+        <div class="card">
+            <div class="side"><img class="about_img" src="{{request.static_url('pi_pantry:static/george.jpg')}}"  alt="George"></div>
+            <div class="side back"><p>"I'm George Ceja and Im a software developer. I love playing video games competitively."</p>
+            <p class="contact-infromation">Contact Information</p> 
+            <a class="about_a" href=https://www.linkedin.com/in/george-sky//>LinkedIn</a>
+            <a class="about_a" href="net.george.sky@gmail.com">Email</a>
+            <a class="about_a" href="https://github.com/GeorgeCloud">GitHub</a>
+            </div>
+        </div>
+        </div>
+    </section>
+        
+    <section id="section3">
+    <div class="card-container">
+        <div class="card">
+        <div class="side"><img class="about_img" src="{{request.static_url('pi_pantry:static/steve.jpg')}}" alt="Steve"></div>
+        <div class="side back"><p>"I'm Steve Starwalt and I'm a software developer, Master Chief, and Manufacturer. I've been all over the world and I've seen the positive things that can happen to people when they have the right tools.  I believe good software is the right tool to make the world better and I want to be a part of that transformation."</p>
+            <p class="contact-infromation">Contact Information</p> 
+            <a class="about_a" href=https://www.linkedin.com/in/steven-starwalt//>LinkedIn</a>
+            <a class="about_a" href="steven.starwalt@yahoo.com">Email</a>
+            <a class="about_a" href="https://github.com/steveflys">GitHub</a>
+            </div>
+        </div>
+    </div>
+    </section>
+</div>
+
+{% endblock content %}

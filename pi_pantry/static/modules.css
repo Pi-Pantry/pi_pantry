@@ -65,7 +65,7 @@ td.add_col {
 }
 #upc {
   font-family: 'Libre Barcode 39 Text', cursive;
-  font-size: 30px;
+  font-size: 60px;
 }
 .scan_box {
   float: left;

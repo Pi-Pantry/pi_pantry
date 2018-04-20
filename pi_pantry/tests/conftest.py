@@ -96,3 +96,31 @@ def dummy_request(db_session):
     Create a dummy GET request with a dbsession
     """
     return testing.DummyRequest(dbsession=db_session)
+
+
+@pytest.fixture
+def add_items(dummy_request, test_entries):
+    """
+    Create a new Entry and add to database
+    """
+    dummy_request.dbsession.add_all(test_entries)
+    return test_entries
+
+
+@pytest.fixture(scope='session')
+def test_entries():
+    """
+    Create a list of Entry objects to be added to the database
+    """
+    return [
+        Product(
+            upc='011345876435',
+            name='Huge Chocolate Bar',
+            brand='HUGE',
+            description='Giant chocolate bar with chocolate',
+            category='candy',
+            image='https://www.hugecandy.com',
+            size='10 lbs',
+            manufacturer='Huge candy co.',
+        ) for i in range(20)
+    ]

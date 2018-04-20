@@ -13,8 +13,8 @@ from semantics3 import Products
 
 
 sem3 = Products(
-    api_key="SEM3D15F366CA4EE3092E9295299DBDD45C3",
-    api_secret="NGYzMjliNzlmZTRiODQ5YWE1NzI4MzdiNjMyZDNkNDE"
+    api_key="SEM3B4C97C14B003A87822E95D682C8847F2",
+    api_secret="ZWVmOGUxNDg1YjM1ZTNjZjMwNTI1Zjk4MjA5MThhNTg"
 )
 
 
@@ -24,6 +24,18 @@ sem3 = Products(
     request_method='GET',
     permission=NO_PERMISSION_REQUIRED)
 def index_view(request):
+    """
+    Directs user to the home template
+    """
+    return {}
+
+
+@view_config(
+    route_name='about',
+    renderer='../templates/about_us.jinja2',
+    request_method='GET',
+    permission=NO_PERMISSION_REQUIRED)
+def about_view(request):
     """
     Directs user to the home template
     """

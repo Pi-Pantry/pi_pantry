@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/base.css')}}">
     <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/layout.css')}}">
     <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/modules.css')}}">
-    <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Diplomata|Libre+Barcode+39+Text|Vollkorn:600" rel="stylesheet"> 
+    <link rel="stylesheet" href="{{request.static_url('pi_pantry:static/about_us.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Encode+Sans+Expanded|Libre+Barcode+39+Text|Trykker|Vollkorn:600" rel="stylesheet"> 
 </head>
 
 <body>
@@ -24,6 +25,7 @@
                 <li><a href="{{request.route_url('pantry')}}" style="text-decoration:none">Pantry</a></li>
                 <li><a href="{{request.route_url('manage_item')}}" style="text-decoration:none">Search Item</a></li>
                 <li><a href="{{request.route_url('logout')}}" style="text-decoration:none">Logout</a></li>
+                <a href="{{request.route_url('about')}}" style="text-decoration:none">The Team</a></li>
                 {% else %}
                 <li><a href="{{request.route_url('auth')}}" style="text-decoration:none">Login</a></li>
                 {% endif %}
@@ -36,9 +38,5 @@
    
     {% endblock content %}
     </div>
-
-    <footer>
-        <p>&copy; MyPantry 2018</p>
-    </footer>
 </body>
 </html>
