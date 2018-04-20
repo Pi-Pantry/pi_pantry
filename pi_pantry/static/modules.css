@@ -67,6 +67,12 @@ td.add_col {
   font-family: 'Libre Barcode 39 Text', cursive;
   font-size: 60px;
 }
+#not_db {
+  width: 70px;
+  height: 20px;
+  background-color: white;
+  color: black;
+}
 .scan_box {
   float: left;
   margin: 20px;

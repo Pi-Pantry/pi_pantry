@@ -21,7 +21,7 @@
 
   {% if err %}
   <h3 id="upc_error">{{err}}</h3>
-  <form class='new-entry' method='POST' action='{{request.route_url("manage_item")}}'>
+  <form class='new-entry' method='GET' action='{{request.route_url("manage_item")}}'>
     <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
     <fieldset>
       <legend>FILL MISSING FORM</legend>
@@ -33,6 +33,7 @@
       IMAGE:        <input value='' name='Image File'>
       SIZE:         <input value='' name='Product Weight'>
       MANUFACTURER: <input value='' name='Manufacturer'>
+      <button id="not_db" type="submit">Submit</button>
     </fieldset>
   </form>
   {% endif %}
