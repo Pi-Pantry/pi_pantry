@@ -109,7 +109,7 @@ def manage_items_view(request):
                 upc_data = Product(**product)
             except (KeyError, IndexError, Semantics3Error):
                 # import pdb; pdb.set_trace()
-                return {'err': 'UPC not in database.  Enter your own fields below.'}
+                return {'err': 'UPC not in database.  Enter your own fields below, submit, we will add it for future use.'}
             try:
                 request.dbsession.add(upc_data)
             except DBAPIError:
